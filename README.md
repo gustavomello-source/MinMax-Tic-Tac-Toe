@@ -47,37 +47,37 @@ contains the `src/` folder).
 ### Windows
 
 ```bat
-:: Default maze (src\data\input_lab256.txt) with A*
-python -m src.main
+:: Default maze (data\input_lab256.txt) with A*
+python -m main
 
 :: Choose the algorithm: astar (default) or bfs
-python -m src.main -a bfs
+python -m main -a bfs
 
 :: Pass a specific maze file
-python -m src.main path\to\maze.txt
+python -m main path\to\maze.txt
 
 :: File + algorithm
-python -m src.main path\to\maze.txt -a bfs
+python -m main path\to\maze.txt -a bfs
 ```
 
 ### Linux / macOS
 
 ```bash
-# Default maze (src/data/input_lab256.txt) with A*
-python3 -m src.main
+# Default maze (data/input_lab256.txt) with A*
+python3 -m main
 
 # Choose the algorithm: astar (default) or bfs
-python3 -m src.main -a bfs
+python3 -m main -a bfs
 
 # Pass a specific maze file
-python3 -m src.main path/to/maze.txt
+python3 -m main path/to/maze.txt
 
 # File + algorithm
-python3 -m src.main path/to/maze.txt -a bfs
+python3 -m main path/to/maze.txt -a bfs
 ```
 
 If no text file is provided, the program will look for the default maze file
-`src/data/input_lab256.txt`. If a file is provided but not found, the program will look for a file with the same name inside the `src/data/` directory.
+`data/input_lab256.txt`. If a file is provided but not found, the program will look for a file with the same name inside the `data/` directory.
 
 ## Arguments
 
@@ -90,27 +90,30 @@ If no text file is provided, the program will look for the default maze file
 
 ```
 project
-├── README.md
-└── src/
-    ├── __init__.py       # Package definition
-    ├── main.py           # Entry point: CLI arguments and program execution
-    ├── maze.py           # Maze environment (grid, cell rules, shared moves)
-    ├── search_node.py    # SearchNode: a single position in the search
-    ├── astar.py          # AStar search strategy (Chebyshev heuristic)
-    ├── bfs.py            # BFS search strategy
-    ├── agent.py          # RobotAgent: picks and runs a strategy
-    └── data/
-        └── input_lab256.txt   # Sample maze file
+├── data/
+│   └── input_lab256.txt   # Sample maze file
+├── src/
+│   ├── __init__.py       # Package definition
+│   ├── main.py           # Entry point: CLI arguments and program execution
+│   ├── maze.py           # Maze environment (grid, cell rules, shared moves)
+│   ├── search_node.py    # SearchNode: a single position in the search
+│   ├── astar.py          # AStar search strategy (Chebyshev heuristic)
+│   ├── bfs.py            # BFS search strategy
+│   └── agent.py          # RobotAgent: picks and runs a strategy
+├── .gitignore
+├── LICENSE
+├── main.py # Entry point for running the program as a script
+└── README.md
 ```
 
 ## Edits
 This section describes briefly what each directory and file is responsible for:
 
 - `src/__init__.py`: defines the package and its modules.
-- `src/main.py`: entry point of the program, handles CLI arguments and runs the agent.
+- `main.py`: entry point of the program, handles CLI arguments and runs the agent.
 - `src/maze.py`: defines the `Maze` class, which represents the maze environment, including the grid, cell rules, and shared moves.
 - `src/search_node.py`: defines the `SearchNode` class, which represents a single position in the search process.
 - `src/astar.py`: implements the A* search strategy, using the Chebyshev heuristic for 8-directional movement.
 - `src/bfs.py`: implements the Breadth-First Search (BFS) strategy.
 - `src/agent.py`: defines the `RobotAgent` class, which selects and runs a search strategy (A* or BFS) over the maze.
-- `src/data/input_lab256.txt`: a sample maze file used for testing and demonstration purposes.
+- `data/input_lab256.txt`: a sample maze file used for testing and demonstration purposes.

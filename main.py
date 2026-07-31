@@ -84,6 +84,7 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "-a",
         "--algorithm",
+        type=str,
         choices=["astar", "bfs"],
         default="astar",
         help="Search algorithm to use between astar and bfs (default: astar).",
