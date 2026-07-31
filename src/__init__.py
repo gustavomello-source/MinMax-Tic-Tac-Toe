@@ -9,5 +9,4 @@ cell to a target cell.
 - :mod:`src.astar` defines the :class:`~src.astar.AStar` search strategy.
 - :mod:`src.agent` defines the :class:`~src.agent.RobotAgent`.
 - :mod:`src.bfs` defines the :class:`~src.bfs.BFS` search strategy.
-- :mod:`src.main` provides a command-line interface to run the solver on a maze.
 """

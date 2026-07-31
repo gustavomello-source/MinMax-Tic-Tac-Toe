@@ -48,32 +48,32 @@ contains the `src/` folder).
 
 ```bat
 :: Default maze (data\input_lab256.txt) with A*
-python -m main
+python main
 
 :: Choose the algorithm: astar (default) or bfs
-python -m main -a bfs
+python main -a bfs
 
 :: Pass a specific maze file
-python -m main path\to\maze.txt
+python main path\to\maze.txt
 
 :: File + algorithm
-python -m main path\to\maze.txt -a bfs
+python main path\to\maze.txt -a bfs
 ```
 
 ### Linux / macOS
 
 ```bash
 # Default maze (data/input_lab256.txt) with A*
-python3 -m main
+python3 main
 
 # Choose the algorithm: astar (default) or bfs
-python3 -m main -a bfs
+python3 main -a bfs
 
 # Pass a specific maze file
-python3 -m main path/to/maze.txt
+python3 main path/to/maze.txt
 
 # File + algorithm
-python3 -m main path/to/maze.txt -a bfs
+python3 main path/to/maze.txt -a bfs
 ```
 
 If no text file is provided, the program will look for the default maze file
