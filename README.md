@@ -64,13 +64,16 @@ minmax-tic-tac-toe/
   │   │   │   ├── match.py    
   │   │   │   └── player_mark.py
   │   │   │        
-  │   │   └── ui/
+  │   │   ├── ui/
+  │   │   │   ├── pygame_ui.py
+  │   │   │   └── console.py 
+  │   │   │
   │   │   └── utils/
   │   │
   ├── tests/
   │   ├── test_board.py
   │   └── test_minmax.py
-  │     
+  │   └── test_match.py  
   │
   ├── .gitignore
   ├── LICENSE
