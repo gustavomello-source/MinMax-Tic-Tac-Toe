@@ -6,7 +6,7 @@ and provides methods to store current positions, query and update the game state
 such as making moves, checking available positions, and resetting the board.
 """
 
-from player_mark import PlayerMark
+from .player_mark import PlayerMark
 
 BOARD_SIZE = 3  # The board is always a 3x3 grid
 
@@ -70,3 +70,58 @@ class Board:
             list[list[PlayerMark | None]]: A 3x3 list representing the current board state.
         """
         return [row.copy() for row in self.board]
+
+
+
+
+    def get_winner(self) -> PlayerMark | None:
+        """Get the winner of the game, if one exists.
+
+        Returns:
+        PlayerMark | None: The winning mark, or None if there is no winner.
+        """
+        for row in self.board:
+            if row[0] is not None and row[0] == row[1] == row[2]:
+                return row[0]
+
+        for col in range(BOARD_SIZE):
+            if (
+                self.board[0][col] is not None
+                and self.board[0][col]
+                == self.board[1][col]
+                == self.board[2][col]
+            ):
+                return self.board[0][col]
+
+        if (
+            self.board[0][0] is not None
+            and self.board[0][0] == self.board[1][1] == self.board[2][2]
+        ):
+            return self.board[0][0]
+
+        if (
+            self.board[0][2] is not None
+            and self.board[0][2] == self.board[1][1] == self.board[2][0]
+        ):
+            return self.board[0][2]
+
+        return None
+
+    def is_full(self) -> bool:
+        """Check whether the board has no available positions.
+
+        Returns:
+            bool: True if the board is full, False otherwise.
+        """
+        return len(self.get_available_positions()) == 0
+
+
+    def is_game_over(self) -> bool:
+        """Check whether the game has ended.
+
+        Returns:
+            bool: True if there is a winner or the board is full, False otherwise.
+        """
+        return self.get_winner() is not None or self.is_full()
+
+    
