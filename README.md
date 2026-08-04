@@ -57,13 +57,21 @@ minmax-tic-tac-toe/
   ├── src/
   │   ├── tictactoe/
   │   │   ├── ai/
+  │   │   │   └── minmax.py
+  │   │   │
   │   │   ├── game/
   │   │   │   ├── board.py
+  │   │   │   ├── match.py    
   │   │   │   └── player_mark.py
+  │   │   │        
   │   │   └── ui/
   │   │   └── utils/
+  │   │
   ├── tests/
-  │   └── test_board.py
+  │   ├── test_board.py
+  │   └── test_minmax.py
+  │     
+  │
   ├── .gitignore
   ├── LICENSE
   ├── pyproject.toml
