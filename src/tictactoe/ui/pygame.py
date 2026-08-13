@@ -63,6 +63,16 @@ class PyGameBoard:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self._running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                self._play_move_at(event.pos)
+
+    def _play_move_at(self, mouse_position: tuple[int, int]) -> None:
+        """Delegate the board position at a mouse click to the game."""
+        board_position = self.board_layout.get_board_position(*mouse_position)
+
+        if board_position is not None:
+            row, column = board_position
+            self.game.play_move(row, column)
 
     def _draw(self) -> None:
         """Draw the current application state."""
