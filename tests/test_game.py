@@ -38,6 +38,26 @@ def test_winning_game_reports_won_status() -> None:
     assert game.status == GameStatus.WON
 
 
+def test_drawn_game_reports_draw_status() -> None:
+    """A full game without a winner should report a draw status."""
+    game = TicTacToeGame()
+    moves = [
+        (0, 0),
+        (0, 1),
+        (0, 2),
+        (1, 1),
+        (1, 0),
+        (1, 2),
+        (2, 1),
+        (2, 0),
+        (2, 2),
+    ]
+    for row, column in moves:
+        game.play_move(row, column)
+
+    assert game.status == GameStatus.DRAW
+
+
 def test_game_accepts_a_custom_starting_player() -> None:
     """The selected starting player should take the first turn."""
     game = TicTacToeGame(starting_player=PlayerMark.O)
