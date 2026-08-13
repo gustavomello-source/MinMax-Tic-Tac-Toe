@@ -129,6 +129,20 @@ def test_get_mark_returns_none_outside_board() -> None:
     assert board.get_mark(row=BOARD_SIZE, column=0) is None
 
 
+def test_contains_position_accepts_position_inside_board() -> None:
+    """A valid row and column should be contained by the board."""
+    board = Board()
+
+    assert board.contains_position(row=2, column=2) is True
+
+
+def test_contains_position_rejects_position_outside_board() -> None:
+    """An invalid row or column should be outside the board."""
+    board = Board()
+
+    assert board.contains_position(row=-1, column=0) is False
+
+
 def test_copy_returns_independent_board() -> None:
     """Changing a copied board should not change the original board."""
     board = Board()
