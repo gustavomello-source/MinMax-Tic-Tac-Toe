@@ -41,6 +41,13 @@ def test_pygame_app_uses_supplied_opponent_move_selector() -> None:
     assert pygame_app.opponent_move_selector is move_selector
 
 
+def test_pygame_app_uses_supplied_human_player() -> None:
+    """The Pygame app should retain the configured human player."""
+    pygame_app = PygameApp(human_player=PlayerMark.O)
+
+    assert pygame_app.human_player == PlayerMark.O
+
+
 def test_valid_click_plays_opponent_selected_move() -> None:
     """A valid human move should be followed by the selected opponent move."""
     game = TicTacToeGame()

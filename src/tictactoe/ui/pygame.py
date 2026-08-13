@@ -4,6 +4,7 @@ import pygame
 
 from tictactoe.game.game import TicTacToeGame
 from tictactoe.game.move_selector import MoveSelector
+from tictactoe.game.player_mark import PlayerMark
 from tictactoe.ui.board_layout import BoardLayout
 from tictactoe.ui.board_renderer import PygameBoardRenderer
 
@@ -19,10 +20,12 @@ class PygameApp:
         game: TicTacToeGame | None = None,
         board_layout: BoardLayout | None = None,
         opponent_move_selector: MoveSelector | None = None,
+        human_player: PlayerMark = PlayerMark.X,
     ) -> None:
         """Create a Pygame board for the supplied or a new game."""
         self.game = game if game is not None else TicTacToeGame()
         self.opponent_move_selector = opponent_move_selector
+        self.human_player = human_player
         self.board_layout = board_layout or BoardLayout(
             width=WINDOW_SIZE,
             height=WINDOW_SIZE,
