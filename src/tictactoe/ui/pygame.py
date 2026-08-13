@@ -2,21 +2,19 @@
 
 import pygame
 
-from tictactoe.game.board import BOARD_SIZE
 from tictactoe.game.game import TicTacToeGame
 from tictactoe.game.player_mark import PlayerMark
 from tictactoe.ui.board_layout import BoardLayout
+from tictactoe.ui.board_renderer import PygameBoardRenderer
 
 WINDOW_SIZE = 600
 WINDOW_TITLE = "MinMax Tic Tac Toe"
 FRAMES_PER_SECOND = 60
 
 BACKGROUND_COLOR = (245, 245, 245)
-GRID_COLOR = (45, 45, 45)
 X_COLOR = (50, 100, 200)
 O_COLOR = (220, 80, 80)
 
-GRID_WIDTH = 6
 MARK_WIDTH = 12
 
 
@@ -34,6 +32,7 @@ class PygameApp:
             width=WINDOW_SIZE,
             height=WINDOW_SIZE,
         )
+        self.board_renderer = PygameBoardRenderer(self.board_layout)
         self._screen: pygame.Surface | None = None
         self._clock: pygame.time.Clock | None = None
         self._running = False
@@ -101,31 +100,8 @@ class PygameApp:
             return
 
         self._screen.fill(BACKGROUND_COLOR)
-        self._draw_grid()
+        self.board_renderer.draw_grid(self._screen)
         self._draw_marks()
-
-    def _draw_grid(self) -> None:
-        """Draw the lines that divide the board cells."""
-        if self._screen is None:
-            return
-
-        for index in range(1, BOARD_SIZE):
-            horizontal_offset = index * self.board_layout.cell_width
-            vertical_offset = index * self.board_layout.cell_height
-            pygame.draw.line(
-                self._screen,
-                GRID_COLOR,
-                (horizontal_offset, 0),
-                (horizontal_offset, self.board_layout.height),
-                GRID_WIDTH,
-            )
-            pygame.draw.line(
-                self._screen,
-                GRID_COLOR,
-                (0, vertical_offset),
-                (self.board_layout.width, vertical_offset),
-                GRID_WIDTH,
-            )
 
     def _draw_marks(self) -> None:
         """Draw every mark stored in the board model."""
