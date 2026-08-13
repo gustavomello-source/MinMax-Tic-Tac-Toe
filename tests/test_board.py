@@ -17,7 +17,7 @@ def test_make_move_places_player_mark() -> None:
     """A valid move should place the player's mark on the board."""
     board = Board()
 
-    success: bool = board.make_move(row=1, col=2, player=PlayerMark.X)
+    success: bool = board.make_move(row=1, column=2, player=PlayerMark.X)
 
     assert success is True
     assert board.get_current_state()[1][2] == PlayerMark.X
@@ -27,9 +27,9 @@ def test_make_move_returns_false_if_position_is_occupied() -> None:
     """A move cannot overwrite an occupied position."""
     board = Board()
 
-    board.make_move(row=0, col=0, player=PlayerMark.X)
+    board.make_move(row=0, column=0, player=PlayerMark.X)
 
-    success: bool = board.make_move(row=0, col=0, player=PlayerMark.O)
+    success: bool = board.make_move(row=0, column=0, player=PlayerMark.O)
 
     assert success is False
     assert board.get_current_state()[0][0] == PlayerMark.X
@@ -39,36 +39,36 @@ def test_make_move_returns_false_for_negative_row() -> None:
     """A move outside the board should fail."""
     board = Board()
 
-    assert board.make_move(row=-1, col=0, player=PlayerMark.X) is False
+    assert board.make_move(row=-1, column=0, player=PlayerMark.X) is False
 
 
 def test_make_move_returns_false_for_negative_column() -> None:
     """A move outside the board should fail."""
     board = Board()
 
-    assert board.make_move(row=0, col=-1, player=PlayerMark.X) is False
+    assert board.make_move(row=0, column=-1, player=PlayerMark.X) is False
 
 
 def test_make_move_returns_false_for_row_out_of_bounds() -> None:
     """A move outside the board should fail."""
     board = Board()
 
-    assert board.make_move(row=BOARD_SIZE, col=0, player=PlayerMark.X) is False
+    assert board.make_move(row=BOARD_SIZE, column=0, player=PlayerMark.X) is False
 
 
 def test_make_move_returns_false_for_column_out_of_bounds() -> None:
     """A move outside the board should fail."""
     board = Board()
 
-    assert board.make_move(row=0, col=BOARD_SIZE, player=PlayerMark.X) is False
+    assert board.make_move(row=0, column=BOARD_SIZE, player=PlayerMark.X) is False
 
 
 def test_reset_clears_the_board() -> None:
     """Reset should remove all player marks."""
     board = Board()
 
-    board.make_move(row=0, col=0, player=PlayerMark.X)
-    board.make_move(row=2, col=2, player=PlayerMark.O)
+    board.make_move(row=0, column=0, player=PlayerMark.X)
+    board.make_move(row=2, column=2, player=PlayerMark.O)
 
     board.reset()
 
@@ -94,8 +94,8 @@ def test_get_available_positions_excludes_occupied_positions() -> None:
     """Occupied positions should not be reported as available."""
     board = Board()
 
-    board.make_move(row=0, col=0, player=PlayerMark.X)
-    board.make_move(row=2, col=1, player=PlayerMark.O)
+    board.make_move(row=0, column=0, player=PlayerMark.X)
+    board.make_move(row=2, column=1, player=PlayerMark.O)
 
     positions: list[tuple[int, int]] = board.get_available_positions()
 

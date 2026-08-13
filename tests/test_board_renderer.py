@@ -48,7 +48,7 @@ def test_draw_o_draws_mark_in_selected_cell() -> None:
 def test_draw_marks_renders_board_state() -> None:
     """Mark rendering should select the drawing for each stored mark."""
     board = Board()
-    board.make_move(row=1, col=1, player=PlayerMark.X)
+    board.make_move(row=1, column=1, player=PlayerMark.X)
     board_layout = BoardLayout(width=300, height=300)
     renderer = PygameBoardRenderer(board_layout)
     surface = pygame.Surface((300, 300))

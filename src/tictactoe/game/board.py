@@ -31,22 +31,22 @@ class Board:
             for column in range(BOARD_SIZE):
                 self._cells[row][column] = None
 
-    def make_move(self, row: int, col: int, player: PlayerMark) -> bool:
+    def make_move(self, row: int, column: int, player: PlayerMark) -> bool:
         """Make a move on the board for the given player ('X' or 'O') at the specified position.
 
         Args:
             row (int): The row index (0-2) where the player wants to place their mark.
-            col (int): The column index (0-2) where the player wants to place their mark.
+            column (int): The column index (0-2) where the player wants to place their mark.
             player (PlayerMark): The player's mark, either 'X' or 'O'.
         Returns:
             bool: True if the move was successful, False otherwise.
         """
         if (
             0 <= row < BOARD_SIZE
-            and 0 <= col < BOARD_SIZE
-            and self._cells[row][col] is None
+            and 0 <= column < BOARD_SIZE
+            and self._cells[row][column] is None
         ):
-            self._cells[row][col] = player
+            self._cells[row][column] = player
             return True
         return False
 
