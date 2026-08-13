@@ -18,6 +18,20 @@ def test_ai_wins() -> None:
     assert move == (0, 2)
 
 
+def test_ai_prefers_immediate_win() -> None:
+    """The AI should prefer winning now over a delayed forced win."""
+    board = Board()
+    ai = MinMax(PlayerMark.X)
+    board.make_move(1, 2, PlayerMark.X)
+    board.make_move(2, 0, PlayerMark.O)
+    board.make_move(2, 1, PlayerMark.O)
+    board.make_move(2, 2, PlayerMark.X)
+
+    move = ai.get_best_move(board)
+
+    assert move == (0, 2)
+
+
 def test_ai_blocks() -> None:
     """The AI should block an immediate opponent victory."""
     board = Board()

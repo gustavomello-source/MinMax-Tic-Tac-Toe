@@ -8,8 +8,8 @@ and selects the best move for the AI player.
 from tictactoe.game.board import Board
 from tictactoe.game.player_mark import PlayerMark
 
-WIN_SCORE = 1
-LOSS_SCORE = -1
+WIN_SCORE = 10
+LOSS_SCORE = -10
 DRAW_SCORE = 0
 
 
@@ -43,14 +43,19 @@ class MinMax:
             simulated_board = board.copy()
             simulated_board.make_move(row, column, self.ai_player)
 
-            score = self._minmax(simulated_board, opponent)
+            score = self._minmax(simulated_board, opponent, depth=1)
 
             if best_move is None or score > best_score:
                 best_score = score
                 best_move = (row, column)
 
         return best_move
-    def _minmax(self, board: Board, current_player: PlayerMark) -> int:
+    def _minmax(
+        self,
+        board: Board,
+        current_player: PlayerMark,
+        depth: int,
+    ) -> int:
         """Calculate the score of a possible board state.
 
         Args:
@@ -62,10 +67,10 @@ class MinMax:
         winner = board.get_winner()
 
         if winner == self.ai_player:
-            return WIN_SCORE
+            return WIN_SCORE - depth
 
         if winner is not None:
-            return LOSS_SCORE
+            return LOSS_SCORE + depth
 
         if board.is_draw():
             return DRAW_SCORE
@@ -79,7 +84,7 @@ class MinMax:
                 simulated_board = board.copy()
                 simulated_board.make_move(row, column, current_player)
 
-                score = self._minmax(simulated_board, next_player)
+                score = self._minmax(simulated_board, next_player, depth + 1)
                 best_score = max(best_score, score)
 
             return best_score
@@ -90,7 +95,7 @@ class MinMax:
             simulated_board = board.copy()
             simulated_board.make_move(row, column, current_player)
 
-            score = self._minmax(simulated_board, next_player)
+            score = self._minmax(simulated_board, next_player, depth + 1)
             best_score = min(best_score, score)
 
         return best_score
