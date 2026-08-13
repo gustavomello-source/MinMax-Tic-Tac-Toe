@@ -6,7 +6,9 @@ from tictactoe.game.board import BOARD_SIZE
 from tictactoe.ui.board_layout import BoardLayout
 
 GRID_COLOR = (45, 45, 45)
+X_COLOR = (50, 100, 200)
 GRID_WIDTH = 6
+MARK_WIDTH = 12
 
 
 class PygameBoardRenderer:
@@ -35,3 +37,15 @@ class PygameBoardRenderer:
                 (self.board_layout.width, vertical_offset),
                 GRID_WIDTH,
             )
+
+    def draw_x(self, surface: pygame.Surface, row: int, column: int) -> None:
+        """Draw an X in one board cell."""
+        horizontal_padding = self.board_layout.cell_width // 4
+        vertical_padding = self.board_layout.cell_height // 4
+        left = column * self.board_layout.cell_width + horizontal_padding
+        right = (column + 1) * self.board_layout.cell_width - horizontal_padding
+        top = row * self.board_layout.cell_height + vertical_padding
+        bottom = (row + 1) * self.board_layout.cell_height - vertical_padding
+
+        pygame.draw.line(surface, X_COLOR, (left, top), (right, bottom), MARK_WIDTH)
+        pygame.draw.line(surface, X_COLOR, (right, top), (left, bottom), MARK_WIDTH)

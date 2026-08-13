@@ -5,17 +5,15 @@ import pygame
 from tictactoe.game.game import TicTacToeGame
 from tictactoe.game.player_mark import PlayerMark
 from tictactoe.ui.board_layout import BoardLayout
-from tictactoe.ui.board_renderer import PygameBoardRenderer
+from tictactoe.ui.board_renderer import MARK_WIDTH, PygameBoardRenderer
 
 WINDOW_SIZE = 600
 WINDOW_TITLE = "MinMax Tic Tac Toe"
 FRAMES_PER_SECOND = 60
 
 BACKGROUND_COLOR = (245, 245, 245)
-X_COLOR = (50, 100, 200)
 O_COLOR = (220, 80, 80)
 
-MARK_WIDTH = 12
 
 
 class PygameApp:
@@ -108,28 +106,13 @@ class PygameApp:
         for row_index, row in enumerate(self.game.board.get_current_state()):
             for col_index, mark in enumerate(row):
                 if mark == PlayerMark.X:
-                    self._draw_x(row_index, col_index)
+                    self.board_renderer.draw_x(
+                        self._screen,
+                        row_index,
+                        col_index,
+                    )
                 elif mark == PlayerMark.O:
                     self._draw_o(row_index, col_index)
-
-    def _draw_x(self, row: int, col: int) -> None:
-        """Draw an X in one board cell."""
-        if self._screen is None:
-            return
-
-        horizontal_padding = self.board_layout.cell_width // 4
-        vertical_padding = self.board_layout.cell_height // 4
-        left = col * self.board_layout.cell_width + horizontal_padding
-        right = (col + 1) * self.board_layout.cell_width - horizontal_padding
-        top = row * self.board_layout.cell_height + vertical_padding
-        bottom = (row + 1) * self.board_layout.cell_height - vertical_padding
-
-        pygame.draw.line(
-            self._screen, X_COLOR, (left, top), (right, bottom), MARK_WIDTH
-        )
-        pygame.draw.line(
-            self._screen, X_COLOR, (right, top), (left, bottom), MARK_WIDTH
-        )
 
     def _draw_o(self, row: int, col: int) -> None:
         """Draw an O in one board cell."""
