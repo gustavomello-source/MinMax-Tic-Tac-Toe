@@ -72,6 +72,8 @@ class PygameApp:
         if board_position is not None:
             row, column = board_position
             if self.game.play_move(row, column):
+                if self.opponent_move_selector is not None:
+                    self.game.play_selected_move(self.opponent_move_selector)
                 self._update_window_title()
 
     def _update_window_title(self) -> None:

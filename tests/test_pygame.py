@@ -41,6 +41,20 @@ def test_pygame_app_uses_supplied_opponent_move_selector() -> None:
     assert pygame_app.opponent_move_selector is move_selector
 
 
+def test_valid_click_plays_opponent_selected_move() -> None:
+    """A valid human move should be followed by the selected opponent move."""
+    game = TicTacToeGame()
+    pygame_app = PygameApp(
+        game=game,
+        opponent_move_selector=FixedMoveSelector(),
+    )
+
+    pygame_app._play_move_at(mouse_position=(250, 250))
+
+    assert game.board.get_current_state()[1][1] == PlayerMark.X
+    assert game.board.get_current_state()[0][0] == PlayerMark.O
+
+
 def test_mouse_position_plays_move_in_mapped_cell() -> None:
     """A mouse position should play a move in its mapped board cell."""
     game = TicTacToeGame()
