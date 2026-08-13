@@ -24,6 +24,7 @@ def test_new_game_is_in_progress() -> None:
     game = TicTacToeGame()
 
     assert game.status == GameStatus.IN_PROGRESS
+    assert game.is_over is False
 
 
 def test_winning_game_reports_won_status() -> None:
@@ -36,6 +37,7 @@ def test_winning_game_reports_won_status() -> None:
     game.play_move(row=0, column=2)
 
     assert game.status == GameStatus.WON
+    assert game.is_over is True
 
 
 def test_winning_game_exposes_winner() -> None:
