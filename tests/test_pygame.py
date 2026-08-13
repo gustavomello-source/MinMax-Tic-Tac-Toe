@@ -78,3 +78,29 @@ def test_window_title_shows_winner() -> None:
     window_title, _ = pygame.display.get_caption()
     pygame.quit()
     assert window_title == "MinMax Tic Tac Toe - X wins"
+
+
+def test_window_title_shows_draw() -> None:
+    """The window title should identify a drawn game."""
+    game = TicTacToeGame()
+    moves = [
+        (0, 0),
+        (0, 1),
+        (0, 2),
+        (1, 1),
+        (1, 0),
+        (1, 2),
+        (2, 1),
+        (2, 0),
+        (2, 2),
+    ]
+    for row, column in moves:
+        game.play_move(row, column)
+    pygame_board = PyGameBoard(game=game)
+    pygame.init()
+
+    pygame_board._update_window_title()
+
+    window_title, _ = pygame.display.get_caption()
+    pygame.quit()
+    assert window_title == "MinMax Tic Tac Toe - Draw"

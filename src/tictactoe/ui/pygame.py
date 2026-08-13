@@ -88,6 +88,10 @@ class PyGameBoard:
             pygame.display.set_caption(f"{WINDOW_TITLE} - {winner.value} wins")
             return
 
+        if self.game.board.is_full():
+            pygame.display.set_caption(f"{WINDOW_TITLE} - Draw")
+            return
+
         current_mark = self.game.current_player.value
         pygame.display.set_caption(f"{WINDOW_TITLE} - {current_mark}'s turn")
 
