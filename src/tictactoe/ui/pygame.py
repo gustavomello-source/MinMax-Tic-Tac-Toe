@@ -2,7 +2,8 @@
 
 import pygame
 
-from game.board import BOARD_SIZE, Board
+from game.board import BOARD_SIZE
+from game.game import TicTacToeGame
 from game.player_mark import PlayerMark
 
 WINDOW_SIZE = 600
@@ -23,9 +24,9 @@ MARK_PADDING = CELL_SIZE // 4
 class PyGameBoard:
     """Manage the Pygame window and render the current board state."""
 
-    def __init__(self, board: Board | None = None) -> None:
-        """Create an application for the supplied board or a new empty board."""
-        self.board = board if board is not None else Board()
+    def __init__(self, game: TicTacToeGame | None = None) -> None:
+        """Create a Pygame board for the supplied or a new game."""
+        self.game = game if game is not None else TicTacToeGame()
         self._screen: pygame.Surface | None = None
         self._clock: pygame.time.Clock | None = None
         self._running = False
@@ -87,7 +88,7 @@ class PyGameBoard:
 
     def _draw_marks(self) -> None:
         """Draw every mark stored in the board model."""
-        for row_index, row in enumerate(self.board.get_current_state()):
+        for row_index, row in enumerate(self.game.board.get_current_state()):
             for col_index, mark in enumerate(row):
                 if mark == PlayerMark.X:
                     self._draw_x(row_index, col_index)
