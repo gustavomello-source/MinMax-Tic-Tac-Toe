@@ -71,6 +71,13 @@ class Board:
         """
         return [row.copy() for row in self._cells]
 
+    def get_mark(self, row: int, column: int) -> PlayerMark | None:
+        """Return the mark stored at one board position."""
+        if not 0 <= row < BOARD_SIZE or not 0 <= column < BOARD_SIZE:
+            return None
+
+        return self._cells[row][column]
+
     def copy(self) -> "Board":
         """Return an independent copy of the board."""
         copied_board = Board()
