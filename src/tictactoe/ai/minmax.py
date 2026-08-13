@@ -113,8 +113,12 @@ class MinMax:
         best_score = WIN_SCORE
 
         for row, column in board.get_available_positions():
-            simulated_board = board.copy()
-            simulated_board.make_move(row, column, current_player)
+            simulated_board = self._simulate_move(
+                board,
+                row,
+                column,
+                current_player,
+            )
 
             score = self._minmax(simulated_board, next_player, depth + 1)
             best_score = min(best_score, score)
