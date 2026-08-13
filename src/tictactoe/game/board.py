@@ -21,7 +21,7 @@ class Board:
 
     def __init__(self) -> None:
         """Initialize the board with an empty state."""
-        self.board: list[list[PlayerMark | None]] = [
+        self._cells: list[list[PlayerMark | None]] = [
             [None for _ in range(BOARD_SIZE)] for _ in range(BOARD_SIZE)
         ]
 
@@ -29,7 +29,7 @@ class Board:
         """Reset the board to its initial empty state."""
         for i in range(BOARD_SIZE):
             for j in range(BOARD_SIZE):
-                self.board[i][j] = None
+                self._cells[i][j] = None
 
     def make_move(self, row: int, col: int, player: PlayerMark) -> bool:
         """Make a move on the board for the given player ('X' or 'O') at the specified position.
@@ -44,9 +44,9 @@ class Board:
         if (
             0 <= row < BOARD_SIZE
             and 0 <= col < BOARD_SIZE
-            and self.board[row][col] is None
+            and self._cells[row][col] is None
         ):
-            self.board[row][col] = player
+            self._cells[row][col] = player
             return True
         return False
 
@@ -60,7 +60,7 @@ class Board:
             (i, j)
             for i in range(BOARD_SIZE)
             for j in range(BOARD_SIZE)
-            if self.board[i][j] is None
+            if self._cells[i][j] is None
         ]
 
     def get_current_state(self) -> list[list[PlayerMark | None]]:
@@ -69,7 +69,7 @@ class Board:
         Returns:
             list[list[PlayerMark | None]]: A 3x3 list representing the current board state.
         """
-        return [row.copy() for row in self.board]
+        return [row.copy() for row in self._cells]
 
 
 
@@ -80,30 +80,30 @@ class Board:
         Returns:
         PlayerMark | None: The winning mark, or None if there is no winner.
         """
-        for row in self.board:
+        for row in self._cells:
             if row[0] is not None and row[0] == row[1] == row[2]:
                 return row[0]
 
         for col in range(BOARD_SIZE):
             if (
-                self.board[0][col] is not None
-                and self.board[0][col]
-                == self.board[1][col]
-                == self.board[2][col]
+                self._cells[0][col] is not None
+                and self._cells[0][col]
+                == self._cells[1][col]
+                == self._cells[2][col]
             ):
-                return self.board[0][col]
+                return self._cells[0][col]
 
         if (
-            self.board[0][0] is not None
-            and self.board[0][0] == self.board[1][1] == self.board[2][2]
+            self._cells[0][0] is not None
+            and self._cells[0][0] == self._cells[1][1] == self._cells[2][2]
         ):
-            return self.board[0][0]
+            return self._cells[0][0]
 
         if (
-            self.board[0][2] is not None
-            and self.board[0][2] == self.board[1][1] == self.board[2][0]
+            self._cells[0][2] is not None
+            and self._cells[0][2] == self._cells[1][1] == self._cells[2][0]
         ):
-            return self.board[0][2]
+            return self._cells[0][2]
 
         return None
 
@@ -113,7 +113,7 @@ class Board:
         Returns:
             bool: True if the board is full, False otherwise.
         """
-        return all(cell is not None for row in self.board for cell in row)
+        return all(cell is not None for row in self._cells for cell in row)
 
 
     def is_game_over(self) -> bool:
