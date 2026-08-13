@@ -96,16 +96,9 @@ class MinMax:
         Returns:
             int: The score of the evaluated board state.
         """
-        winner = board.get_winner()
-
-        if winner == self.ai_player:
-            return WIN_SCORE - depth
-
-        if winner is not None:
-            return LOSS_SCORE + depth
-
-        if board.is_draw():
-            return DRAW_SCORE
+        terminal_score = self._get_terminal_score(board, depth)
+        if terminal_score is not None:
+            return terminal_score
 
         next_player = current_player.opponent
 
