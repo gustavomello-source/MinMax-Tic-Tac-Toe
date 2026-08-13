@@ -20,8 +20,8 @@ GRID_WIDTH = 6
 MARK_WIDTH = 12
 
 
-class PyGameBoard:
-    """Manage the Pygame window and render the current board state."""
+class PygameApp:
+    """Manage the Pygame application lifecycle and user interface."""
 
     def __init__(
         self,

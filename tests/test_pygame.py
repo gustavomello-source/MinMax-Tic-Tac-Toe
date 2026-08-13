@@ -3,14 +3,14 @@ import pygame
 from tictactoe.game.game import TicTacToeGame
 from tictactoe.game.player_mark import PlayerMark
 from tictactoe.ui.board_layout import BoardLayout
-from tictactoe.ui.pygame import PyGameBoard
+from tictactoe.ui.pygame import PygameApp
 
 
 def test_pygame_board_uses_supplied_game() -> None:
     """The Pygame board should render the supplied game instance."""
     game = TicTacToeGame()
 
-    pygame_board = PyGameBoard(game=game)
+    pygame_board = PygameApp(game=game)
 
     assert pygame_board.game is game
 
@@ -19,7 +19,7 @@ def test_pygame_board_uses_supplied_layout() -> None:
     """The Pygame board should use the supplied coordinate layout."""
     board_layout = BoardLayout(width=300, height=300)
 
-    pygame_board = PyGameBoard(board_layout=board_layout)
+    pygame_board = PygameApp(board_layout=board_layout)
 
     assert pygame_board.board_layout is board_layout
 
@@ -27,7 +27,7 @@ def test_pygame_board_uses_supplied_layout() -> None:
 def test_mouse_position_plays_move_in_mapped_cell() -> None:
     """A mouse position should play a move in its mapped board cell."""
     game = TicTacToeGame()
-    pygame_board = PyGameBoard(game=game)
+    pygame_board = PygameApp(game=game)
 
     pygame_board._play_move_at(mouse_position=(250, 450))
 
@@ -38,7 +38,7 @@ def test_r_key_resets_game() -> None:
     """Pressing R should start a new game."""
     game = TicTacToeGame()
     game.play_move(row=0, column=0)
-    pygame_board = PyGameBoard(game=game)
+    pygame_board = PygameApp(game=game)
     pygame.init()
     pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_r))
 
@@ -52,7 +52,7 @@ def test_r_key_resets_game() -> None:
 def test_window_title_shows_current_player() -> None:
     """The window title should identify whose turn it is."""
     game = TicTacToeGame()
-    pygame_board = PyGameBoard(game=game)
+    pygame_board = PygameApp(game=game)
     pygame.init()
 
     pygame_board._update_window_title()
@@ -70,7 +70,7 @@ def test_window_title_shows_winner() -> None:
     game.play_move(row=0, column=1)
     game.play_move(row=1, column=1)
     game.play_move(row=0, column=2)
-    pygame_board = PyGameBoard(game=game)
+    pygame_board = PygameApp(game=game)
     pygame.init()
 
     pygame_board._update_window_title()
@@ -96,7 +96,7 @@ def test_window_title_shows_draw() -> None:
     ]
     for row, column in moves:
         game.play_move(row, column)
-    pygame_board = PyGameBoard(game=game)
+    pygame_board = PygameApp(game=game)
     pygame.init()
 
     pygame_board._update_window_title()
