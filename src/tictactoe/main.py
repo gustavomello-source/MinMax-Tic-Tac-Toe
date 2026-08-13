@@ -1,0 +1,12 @@
+"""Run the Tic Tac Toe application."""
+
+from ui.pygame import PyGameBoard
+
+
+def main() -> None:
+    """Start the Pygame application."""
+    PyGameBoard().run()
+
+
+if __name__ == "__main__":
+    main()
