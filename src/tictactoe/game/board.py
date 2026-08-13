@@ -8,6 +8,8 @@ such as making moves, checking available positions, and resetting the board.
 
 from tictactoe.game.player_mark import PlayerMark
 
+type BoardPosition = tuple[int, int]
+
 BOARD_SIZE = 3  # The board is always a 3x3 grid
 BOARD_AREA = BOARD_SIZE * BOARD_SIZE
 BOARD_POSITIONS = tuple(
@@ -61,11 +63,11 @@ class Board:
             return True
         return False
 
-    def get_available_positions(self) -> list[tuple[int, int]]:
+    def get_available_positions(self) -> list[BoardPosition]:
         """Get a list of available positions on the board.
 
         Returns:
-            list[tuple[int, int]]: A list of tuples representing the available positions (row, col).
+            list[BoardPosition]: The available board positions.
         """
         return [
             (row, column)
