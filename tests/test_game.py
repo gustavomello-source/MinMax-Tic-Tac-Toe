@@ -207,7 +207,7 @@ def test_missing_selected_move_preserves_current_turn() -> None:
 
     assert move_was_played is False
     assert game.current_player == PlayerMark.X
-    assert len(game.board.get_available_positions()) == 9
+    assert game.board.move_count == 0
 
 
 def test_invalid_selected_move_preserves_current_turn() -> None:
