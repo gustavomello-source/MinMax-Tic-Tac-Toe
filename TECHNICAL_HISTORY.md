@@ -263,7 +263,7 @@ loss preferable to a draw or a draw preferable to a win.
 At this checkpoint, `HEAD` is:
 
 ```text
-f262f76 refactor(ui): depend on title formatter abstraction
+77141b7 docs: align README with Pygame application
 ```
 
 `TitleFormatter` now defines the title-formatting boundary consumed by
@@ -275,20 +275,26 @@ The full suite passes with 95 tests. Ruff reports no violations across `src` and
 clean. The bounded architecture review found no dead placeholder or responsibility
 violation requiring a code change.
 
-## Remaining Implementation Work
+The README now uses English consistently and documents the verified UV workflow,
+Pygame controls, current architecture, and current file structure. This replaces
+outdated manual environment instructions and references to files that no longer
+exist.
 
-The remaining work after this verified checkpoint is:
+The package entry point was also launched with dummy SDL video and audio drivers:
 
-1. Update README installation, UV execution, controls, architecture, and current
-   file structure.
-2. Launch the complete app headlessly through:
+```bash
+uv run python -m tictactoe
+```
 
-   ```bash
-   uv run python -m tictactoe
-   ```
+The process initialized Pygame and remained in its event loop until the intentional
+two-second verification timeout, confirming that package resolution, application
+composition, and Pygame startup complete without an exception.
 
-3. Finish when the worktree is clean, all checks pass, documentation matches the
-    implementation, and no responsibility boundary above is violated.
+## Future Implementation Work
+
+The planned Pygame architecture work is complete at this checkpoint. Future
+increments should begin from a concrete defect or project requirement and preserve
+the documented responsibility boundaries.
 
 Additional changes should be supported by a failing test, verified defect, or new
 project requirement.
@@ -376,3 +382,5 @@ the boundary commits that formed each phase.
   cover `GameTitleFormatter`.
 - `7de2950`, `9c421f7` define and adopt the `BoardRenderer` abstraction.
 - `d4f04ad`, `f262f76` define and adopt the `TitleFormatter` abstraction.
+- `3940fc2` records the verified architecture checkpoint.
+- `77141b7` aligns the README with the implemented application and UV workflow.
