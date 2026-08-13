@@ -113,7 +113,7 @@ class Board:
         Returns:
             bool: True if the board is full, False otherwise.
         """
-        return len(self.get_available_positions()) == 0
+        return all(cell is not None for row in self.board for cell in row)
 
 
     def is_game_over(self) -> bool:
@@ -123,4 +123,3 @@ class Board:
             bool: True if there is a winner or the board is full, False otherwise.
         """
         return self.get_winner() is not None or self.is_full()
-
