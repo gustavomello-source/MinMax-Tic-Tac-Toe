@@ -99,7 +99,7 @@ class PygameApp:
             pygame.display.set_caption(f"{WINDOW_TITLE} - {winner.value} wins")
             return
 
-        if self.game.board.is_full():
+        if self.game.board.is_draw():
             pygame.display.set_caption(f"{WINDOW_TITLE} - Draw")
             return
 
