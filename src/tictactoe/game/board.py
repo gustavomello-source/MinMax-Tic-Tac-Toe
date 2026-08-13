@@ -110,30 +110,10 @@ class Board:
         Returns:
         PlayerMark | None: The winning mark, or None if there is no winner.
         """
-        for row in self._cells:
-            if row[0] is not None and row[0] == row[1] == row[2]:
-                return row[0]
-
-        for col in range(BOARD_SIZE):
-            if (
-                self._cells[0][col] is not None
-                and self._cells[0][col]
-                == self._cells[1][col]
-                == self._cells[2][col]
-            ):
-                return self._cells[0][col]
-
-        if (
-            self._cells[0][0] is not None
-            and self._cells[0][0] == self._cells[1][1] == self._cells[2][2]
-        ):
-            return self._cells[0][0]
-
-        if (
-            self._cells[0][2] is not None
-            and self._cells[0][2] == self._cells[1][1] == self._cells[2][0]
-        ):
-            return self._cells[0][2]
+        for line in WINNING_LINES:
+            marks = [self._cells[row][column] for row, column in line]
+            if marks[0] is not None and marks.count(marks[0]) == BOARD_SIZE:
+                return marks[0]
 
         return None
 
