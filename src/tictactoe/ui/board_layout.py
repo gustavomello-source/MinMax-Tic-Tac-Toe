@@ -39,8 +39,4 @@ class BoardLayout:
 
         row = y // self.cell_height
         column = x // self.cell_width
-
-        if row >= BOARD_SIZE or column >= BOARD_SIZE:
-            return None
-
         return row, column
