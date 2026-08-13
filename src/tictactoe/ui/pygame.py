@@ -89,19 +89,20 @@ class PyGameBoard:
             return
 
         for index in range(1, BOARD_SIZE):
-            offset = index * CELL_SIZE
+            horizontal_offset = index * self.board_layout.cell_width
+            vertical_offset = index * self.board_layout.cell_height
             pygame.draw.line(
                 self._screen,
                 GRID_COLOR,
-                (offset, 0),
-                (offset, WINDOW_SIZE),
+                (horizontal_offset, 0),
+                (horizontal_offset, self.board_layout.height),
                 GRID_WIDTH,
             )
             pygame.draw.line(
                 self._screen,
                 GRID_COLOR,
-                (0, offset),
-                (WINDOW_SIZE, offset),
+                (0, vertical_offset),
+                (self.board_layout.width, vertical_offset),
                 GRID_WIDTH,
             )
 
