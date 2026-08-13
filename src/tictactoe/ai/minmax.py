@@ -38,14 +38,14 @@ class MinMax:
             return None
 
         best_move: tuple[int, int] | None = None
-        best_score: int = LOSS_SCORE   
-        opponent: PlayerMark = self.ai_player.opponent
+        best_score = LOSS_SCORE
+        opponent = self.ai_player.opponent
 
         for row, column in board.get_available_positions():
-            simulated_board: Board = deepcopy(board)
+            simulated_board = deepcopy(board)
             simulated_board.make_move(row, column, self.ai_player)
 
-            score: int = self._minmax(simulated_board, opponent)
+            score = self._minmax(simulated_board, opponent)
 
             if best_move is None or score > best_score:
                 best_score = score
@@ -61,7 +61,7 @@ class MinMax:
         Returns:
             int: The score of the evaluated board state.
         """
-        winner: PlayerMark | None = board.get_winner()
+        winner = board.get_winner()
 
         if winner == self.ai_player:
             return WIN_SCORE
@@ -72,16 +72,16 @@ class MinMax:
         if board.is_full():
             return DRAW_SCORE
 
-        next_player: PlayerMark = current_player.opponent
+        next_player = current_player.opponent
 
         if current_player == self.ai_player:
-            best_score: int = LOSS_SCORE
+            best_score = LOSS_SCORE
 
             for row, column in board.get_available_positions():
-                simulated_board: Board = deepcopy(board)
+                simulated_board = deepcopy(board)
                 simulated_board.make_move(row, column, current_player)
 
-                score: int = self._minmax(simulated_board, next_player)
+                score = self._minmax(simulated_board, next_player)
                 best_score = max(best_score, score)
 
             return best_score
