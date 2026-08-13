@@ -3,6 +3,7 @@
 import pygame
 
 from tictactoe.game.game import TicTacToeGame
+from tictactoe.game.game_status import GameStatus
 from tictactoe.game.move_selector import MoveSelector
 from tictactoe.game.player_mark import PlayerMark
 from tictactoe.ui.board_layout import BoardLayout
@@ -93,13 +94,13 @@ class PygameApp:
 
     def _update_window_title(self) -> None:
         """Display the winner or current player in the window title."""
-        winner = self.game.board.get_winner()
-
-        if winner is not None:
+        if self.game.status == GameStatus.WON:
+            winner = self.game.board.get_winner()
+            assert winner is not None
             pygame.display.set_caption(f"{WINDOW_TITLE} - {winner.value} wins")
             return
 
-        if self.game.board.is_draw():
+        if self.game.status == GameStatus.DRAW:
             pygame.display.set_caption(f"{WINDOW_TITLE} - Draw")
             return
 
