@@ -258,50 +258,36 @@ Pygame handling.
 Depth changes preference between outcomes of the same category. It does not make a
 loss preferable to a draw or a draw preferable to a win.
 
-## Current In-Progress State
+## Current Verified State
 
 At this checkpoint, `HEAD` is:
 
 ```text
-9c421f7 refactor(ui): depend on board renderer abstraction
+f262f76 refactor(ui): depend on title formatter abstraction
 ```
 
-The worktree contains one uncommitted file:
+`TitleFormatter` now defines the title-formatting boundary consumed by
+`PygameApp`, while `GameTitleFormatter` remains the default implementation. This
+completes the same dependency-inversion step already applied to board rendering.
 
-```text
-src/tictactoe/ui/title_formatter.py
-```
-
-That file defines the pending `TitleFormatter` protocol. It has passed an import
-check and Ruff, but it is not completed or committed work yet.
-
-Expected commit when resumed:
-
-```text
-refactor(ui): define title formatter abstraction
-```
+The full suite passes with 95 tests. Ruff reports no violations across `src` and
+`tests`, `git diff --check` reports no whitespace errors, and the worktree is
+clean. The bounded architecture review found no dead placeholder or responsibility
+violation requiring a code change.
 
 ## Remaining Implementation Work
 
-The following work was identified but had not been completed at this checkpoint:
+The remaining work after this verified checkpoint is:
 
-1. Commit the pending `TitleFormatter` protocol.
-2. Change only the injected `PygameApp.title_formatter` annotation from concrete
-   `GameTitleFormatter` to `TitleFormatter`; keep `GameTitleFormatter` as default.
-3. Run the entire Pytest suite.
-4. Run Ruff across `src` and `tests`.
-5. Run `git diff --check` and inspect the worktree for untracked or stale files.
-6. Perform one bounded architecture review against the responsibility table above.
-7. Remove only verified dead code or obsolete placeholders, each atomically.
-8. Update README installation, UV execution, controls, architecture, and current
+1. Update README installation, UV execution, controls, architecture, and current
    file structure.
-9. Launch the complete app headlessly through:
+2. Launch the complete app headlessly through:
 
    ```bash
    uv run python -m tictactoe
    ```
 
-10. Finish when the worktree is clean, all checks pass, documentation matches the
+3. Finish when the worktree is clean, all checks pass, documentation matches the
     implementation, and no responsibility boundary above is violated.
 
 Additional changes should be supported by a failing test, verified defect, or new
@@ -389,3 +375,4 @@ the boundary commits that formed each phase.
 - `e1bc1f0`, `0c39739`, `ef279d9`, `c83a937`, `b9816f7` extract, adopt, and
   cover `GameTitleFormatter`.
 - `7de2950`, `9c421f7` define and adopt the `BoardRenderer` abstraction.
+- `d4f04ad`, `f262f76` define and adopt the `TitleFormatter` abstraction.
