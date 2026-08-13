@@ -24,6 +24,13 @@ class TrackingMoveSelector:
         return 2, 2
 
 
+class NoMoveSelector:
+    """Return no selected move."""
+
+    def get_best_move(self, _board: object) -> None:
+        """Return no board position."""
+
+
 def test_game_starts_with_x_by_default() -> None:
     """X should play first unless another starting player is selected."""
     game = TicTacToeGame()
@@ -190,3 +197,14 @@ def test_terminal_game_does_not_request_selected_move() -> None:
 
     assert move_was_played is False
     assert move_selector.was_called is False
+
+
+def test_missing_selected_move_preserves_current_turn() -> None:
+    """No selected move should leave the board and current turn unchanged."""
+    game = TicTacToeGame()
+
+    move_was_played = game.play_selected_move(NoMoveSelector())
+
+    assert move_was_played is False
+    assert game.current_player == PlayerMark.X
+    assert len(game.board.get_available_positions()) == 9
