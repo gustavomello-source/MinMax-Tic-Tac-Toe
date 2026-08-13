@@ -70,6 +70,9 @@ class PygameApp:
 
     def _play_move_at(self, mouse_position: tuple[int, int]) -> None:
         """Delegate the board position at a mouse click to the game."""
+        if self.game.current_player != self.human_player:
+            return
+
         board_position = self.board_layout.get_board_position(*mouse_position)
 
         if board_position is not None:

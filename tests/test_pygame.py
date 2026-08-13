@@ -62,6 +62,16 @@ def test_valid_click_plays_opponent_selected_move() -> None:
     assert game.board.get_current_state()[0][0] == PlayerMark.O
 
 
+def test_click_is_ignored_outside_human_turn() -> None:
+    """Mouse input should not place a mark during the opponent's turn."""
+    game = TicTacToeGame(starting_player=PlayerMark.O)
+    pygame_app = PygameApp(game=game, human_player=PlayerMark.X)
+
+    pygame_app._play_move_at(mouse_position=(250, 250))
+
+    assert game.board.get_current_state()[1][1] is None
+
+
 def test_mouse_position_plays_move_in_mapped_cell() -> None:
     """A mouse position should play a move in its mapped board cell."""
     game = TicTacToeGame()
