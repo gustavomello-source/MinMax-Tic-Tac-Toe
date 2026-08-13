@@ -5,15 +5,13 @@ import pygame
 from tictactoe.game.game import TicTacToeGame
 from tictactoe.game.player_mark import PlayerMark
 from tictactoe.ui.board_layout import BoardLayout
-from tictactoe.ui.board_renderer import MARK_WIDTH, PygameBoardRenderer
+from tictactoe.ui.board_renderer import PygameBoardRenderer
 
 WINDOW_SIZE = 600
 WINDOW_TITLE = "MinMax Tic Tac Toe"
 FRAMES_PER_SECOND = 60
 
 BACKGROUND_COLOR = (245, 245, 245)
-O_COLOR = (220, 80, 80)
-
 
 
 class PygameApp:
@@ -112,22 +110,8 @@ class PygameApp:
                         col_index,
                     )
                 elif mark == PlayerMark.O:
-                    self._draw_o(row_index, col_index)
-
-    def _draw_o(self, row: int, col: int) -> None:
-        """Draw an O in one board cell."""
-        if self._screen is None:
-            return
-
-        center = (
-            col * self.board_layout.cell_width
-            + self.board_layout.cell_width // 2,
-            row * self.board_layout.cell_height
-            + self.board_layout.cell_height // 2,
-        )
-        shortest_cell_side = min(
-            self.board_layout.cell_width,
-            self.board_layout.cell_height,
-        )
-        radius = shortest_cell_side // 4
-        pygame.draw.circle(self._screen, O_COLOR, center, radius, MARK_WIDTH)
+                    self.board_renderer.draw_o(
+                        self._screen,
+                        row_index,
+                        col_index,
+                    )
