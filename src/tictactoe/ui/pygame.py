@@ -9,6 +9,7 @@ from tictactoe.ui.board_layout import BoardLayout
 from tictactoe.ui.board_renderer import PygameBoardRenderer
 from tictactoe.ui.board_renderer_protocol import BoardRenderer
 from tictactoe.ui.game_title_formatter import GameTitleFormatter
+from tictactoe.ui.title_formatter import TitleFormatter
 
 WINDOW_SIZE = 600
 WINDOW_TITLE = "MinMax Tic Tac Toe"
@@ -22,7 +23,7 @@ class PygameApp:
         game: TicTacToeGame | None = None,
         board_layout: BoardLayout | None = None,
         board_renderer: BoardRenderer | None = None,
-        title_formatter: GameTitleFormatter | None = None,
+        title_formatter: TitleFormatter | None = None,
         opponent_move_selector: MoveSelector | None = None,
         human_player: PlayerMark = PlayerMark.X,
     ) -> None:
