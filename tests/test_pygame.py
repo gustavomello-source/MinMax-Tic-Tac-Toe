@@ -1,4 +1,7 @@
+import pygame
+
 from tictactoe.game.game import TicTacToeGame
+from tictactoe.game.player_mark import PlayerMark
 from tictactoe.ui.board_layout import BoardLayout
 from tictactoe.ui.pygame import PyGameBoard
 
@@ -29,3 +32,18 @@ def test_mouse_position_plays_move_in_mapped_cell() -> None:
     pygame_board._play_move_at(mouse_position=(250, 450))
 
     assert game.board.get_current_state()[2][1] is not None
+
+
+def test_r_key_resets_game() -> None:
+    """Pressing R should start a new game."""
+    game = TicTacToeGame()
+    game.play_move(row=0, column=0)
+    pygame_board = PyGameBoard(game=game)
+    pygame.init()
+    pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_r))
+
+    pygame_board._handle_events()
+
+    pygame.quit()
+    assert game.board.get_current_state()[0][0] is None
+    assert game.current_player == PlayerMark.X

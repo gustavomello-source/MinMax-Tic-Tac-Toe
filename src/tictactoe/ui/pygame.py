@@ -67,6 +67,8 @@ class PyGameBoard:
                 self._running = False
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 self._play_move_at(event.pos)
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_r:
+                self.game.reset()
 
     def _play_move_at(self, mouse_position: tuple[int, int]) -> None:
         """Delegate the board position at a mouse click to the game."""
