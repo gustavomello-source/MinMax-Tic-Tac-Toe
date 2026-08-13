@@ -67,7 +67,7 @@ class MinMax:
         if winner is not None:
             return LOSS_SCORE
 
-        if board.is_full():
+        if board.is_draw():
             return DRAW_SCORE
 
         next_player = current_player.opponent
