@@ -107,19 +107,21 @@ class PygameApp:
             self.game.play_selected_move(self.opponent_move_selector)
 
     def _update_window_title(self) -> None:
-        """Display the winner or current player in the window title."""
+        """Display the current game state in the window title."""
+        pygame.display.set_caption(self._get_window_title())
+
+    def _get_window_title(self) -> str:
+        """Return a window title describing the current game state."""
         if self.game.status == GameStatus.WON:
             winner = self.game.winner
             assert winner is not None
-            pygame.display.set_caption(f"{WINDOW_TITLE} - {winner.value} wins")
-            return
+            return f"{WINDOW_TITLE} - {winner.value} wins"
 
         if self.game.status == GameStatus.DRAW:
-            pygame.display.set_caption(f"{WINDOW_TITLE} - Draw")
-            return
+            return f"{WINDOW_TITLE} - Draw"
 
         current_mark = self.game.current_player.value
-        pygame.display.set_caption(f"{WINDOW_TITLE} - {current_mark}'s turn")
+        return f"{WINDOW_TITLE} - {current_mark}'s turn"
 
     def _draw(self) -> None:
         """Draw the current application state."""
