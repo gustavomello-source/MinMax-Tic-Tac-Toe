@@ -5,7 +5,7 @@ This module defines the MinMax class, which evaluates possible moves
 and selects the best move for the AI player.
 """
 
-from tictactoe.game.board import Board
+from tictactoe.game.board import Board, BoardPosition
 from tictactoe.game.player_mark import PlayerMark
 
 WIN_SCORE = 10
@@ -24,18 +24,18 @@ class MinMax:
         """
         self.ai_player = ai_player
 
-    def get_best_move(self, board: Board) -> tuple[int, int] | None:
+    def get_best_move(self, board: Board) -> BoardPosition | None:
         """Get the best available move for the AI.
 
         Args:
             board (Board): The current game board.
         Returns:
-            tuple[int, int] | None: The best position, or None if the game is over.
+            BoardPosition | None: The best position, or None if the game is over.
         """
         if board.is_game_over():
             return None
 
-        best_move: tuple[int, int] | None = None
+        best_move: BoardPosition | None = None
         best_score = LOSS_SCORE
         for row, column in board.get_available_positions():
             score = self._evaluate_move(
