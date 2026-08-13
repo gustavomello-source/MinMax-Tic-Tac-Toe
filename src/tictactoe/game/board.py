@@ -43,9 +43,8 @@ class Board:
 
     def reset(self) -> None:
         """Reset the board to its initial empty state."""
-        for row in range(BOARD_SIZE):
-            for column in range(BOARD_SIZE):
-                self._cells[row][column] = None
+        for row, column in BOARD_POSITIONS:
+            self._cells[row][column] = None
 
     def make_move(self, row: int, column: int, player: PlayerMark) -> bool:
         """Make a move on the board for the given player ('X' or 'O') at the specified position.
