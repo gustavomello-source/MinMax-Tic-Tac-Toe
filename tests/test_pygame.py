@@ -3,6 +3,7 @@ import pygame
 from tictactoe.game.game import TicTacToeGame
 from tictactoe.game.player_mark import PlayerMark
 from tictactoe.ui.board_layout import BoardLayout
+from tictactoe.ui.board_renderer import PygameBoardRenderer
 from tictactoe.ui.pygame import PygameApp
 
 
@@ -30,6 +31,19 @@ def test_pygame_board_uses_supplied_layout() -> None:
     pygame_board = PygameApp(board_layout=board_layout)
 
     assert pygame_board.board_layout is board_layout
+
+
+def test_pygame_app_uses_supplied_board_renderer() -> None:
+    """The Pygame app should retain its configured board renderer."""
+    board_layout = BoardLayout(width=300, height=300)
+    board_renderer = PygameBoardRenderer(board_layout)
+
+    pygame_app = PygameApp(
+        board_layout=board_layout,
+        board_renderer=board_renderer,
+    )
+
+    assert pygame_app.board_renderer is board_renderer
 
 
 def test_pygame_app_uses_supplied_opponent_move_selector() -> None:

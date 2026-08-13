@@ -20,6 +20,7 @@ class PygameApp:
         self,
         game: TicTacToeGame | None = None,
         board_layout: BoardLayout | None = None,
+        board_renderer: PygameBoardRenderer | None = None,
         opponent_move_selector: MoveSelector | None = None,
         human_player: PlayerMark = PlayerMark.X,
     ) -> None:
@@ -31,7 +32,7 @@ class PygameApp:
             width=WINDOW_SIZE,
             height=WINDOW_SIZE,
         )
-        self.board_renderer = PygameBoardRenderer(self.board_layout)
+        self.board_renderer = board_renderer or PygameBoardRenderer(self.board_layout)
         self._screen: pygame.Surface | None = None
         self._clock: pygame.time.Clock | None = None
         self._running = False
