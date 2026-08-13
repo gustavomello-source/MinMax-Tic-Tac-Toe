@@ -6,6 +6,14 @@ from tictactoe.ui.board_layout import BoardLayout
 from tictactoe.ui.pygame import PygameApp
 
 
+class FixedMoveSelector:
+    """Select a fixed move for Pygame application tests."""
+
+    def get_best_move(self, _board: object) -> tuple[int, int]:
+        """Return a fixed board position."""
+        return 0, 0
+
+
 def test_pygame_board_uses_supplied_game() -> None:
     """The Pygame board should render the supplied game instance."""
     game = TicTacToeGame()
@@ -22,6 +30,15 @@ def test_pygame_board_uses_supplied_layout() -> None:
     pygame_board = PygameApp(board_layout=board_layout)
 
     assert pygame_board.board_layout is board_layout
+
+
+def test_pygame_app_uses_supplied_opponent_move_selector() -> None:
+    """The Pygame app should retain its configured opponent selector."""
+    move_selector = FixedMoveSelector()
+
+    pygame_app = PygameApp(opponent_move_selector=move_selector)
+
+    assert pygame_app.opponent_move_selector is move_selector
 
 
 def test_mouse_position_plays_move_in_mapped_cell() -> None:
