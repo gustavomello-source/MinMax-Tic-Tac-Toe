@@ -119,6 +119,13 @@ def test_simulated_move_does_not_change_original_board() -> None:
     assert simulated_board.get_mark(1, 1) == PlayerMark.X
 
 
+def test_terminal_score_returns_none_for_active_board() -> None:
+    """An active board should not have a terminal MinMax score."""
+    ai = MinMax(PlayerMark.X)
+
+    assert ai._get_terminal_score(Board(), depth=0) is None
+
+
 def test_ai_uses_last_position() -> None:
     """The AI should choose the final available position."""
     board = Board()

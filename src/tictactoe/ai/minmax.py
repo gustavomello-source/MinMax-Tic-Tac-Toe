@@ -67,6 +67,21 @@ class MinMax:
         simulated_board.make_move(row, column, player)
         return simulated_board
 
+    def _get_terminal_score(self, board: Board, depth: int) -> int | None:
+        """Return a score for a terminal board, or None while play continues."""
+        winner = board.get_winner()
+
+        if winner == self.ai_player:
+            return WIN_SCORE - depth
+
+        if winner is not None:
+            return LOSS_SCORE + depth
+
+        if board.is_draw():
+            return DRAW_SCORE
+
+        return None
+
     def _minmax(
         self,
         board: Board,
