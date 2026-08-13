@@ -17,6 +17,12 @@ def test_layout_rejects_dimensions_smaller_than_board() -> None:
         BoardLayout(width=2, height=3)
 
 
+def test_layout_rejects_dimensions_not_divisible_by_board() -> None:
+    """Board dimensions should divide evenly into complete cells."""
+    with pytest.raises(ValueError):
+        BoardLayout(width=601, height=600)
+
+
 def test_get_board_position_returns_cell_at_coordinates() -> None:
     """Coordinates inside the layout should map to a board position."""
     layout = BoardLayout(width=600, height=600)

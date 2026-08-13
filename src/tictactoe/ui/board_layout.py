@@ -18,6 +18,10 @@ class BoardLayout:
             message = "Board layout dimensions must be at least the board size"
             raise ValueError(message)
 
+        if self.width % BOARD_SIZE != 0 or self.height % BOARD_SIZE != 0:
+            message = "Board layout dimensions must be divisible by the board size"
+            raise ValueError(message)
+
     @property
     def cell_width(self) -> int:
         """Return the width of one board cell."""
