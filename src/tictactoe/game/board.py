@@ -111,9 +111,12 @@ class Board:
         PlayerMark | None: The winning mark, or None if there is no winner.
         """
         for line in WINNING_LINES:
-            marks = [self._cells[row][column] for row, column in line]
-            if marks[0] is not None and marks.count(marks[0]) == BOARD_SIZE:
-                return marks[0]
+            first_row, first_column = line[0]
+            first_mark = self._cells[first_row][first_column]
+            if first_mark is not None and all(
+                self._cells[row][column] == first_mark for row, column in line[1:]
+            ):
+                return first_mark
 
         return None
 
