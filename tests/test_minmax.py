@@ -1,4 +1,4 @@
-from tictactoe.ai.minmax import MinMax
+from tictactoe.ai.minmax import DRAW_SCORE, LOSS_SCORE, WIN_SCORE, MinMax
 from tictactoe.game.board import Board
 from tictactoe.game.player_mark import PlayerMark
 
@@ -124,6 +124,49 @@ def test_terminal_score_returns_none_for_active_board() -> None:
     ai = MinMax(PlayerMark.X)
 
     assert ai._get_terminal_score(Board(), depth=0) is None
+
+
+def test_terminal_score_rewards_ai_win() -> None:
+    """An AI victory should receive a depth-adjusted winning score."""
+    board = Board()
+    ai = MinMax(PlayerMark.X)
+    board.make_move(0, 0, PlayerMark.X)
+    board.make_move(0, 1, PlayerMark.X)
+    board.make_move(0, 2, PlayerMark.X)
+
+    assert ai._get_terminal_score(board, depth=2) == WIN_SCORE - 2
+
+
+def test_terminal_score_penalizes_ai_loss() -> None:
+    """An opponent victory should receive a depth-adjusted losing score."""
+    board = Board()
+    ai = MinMax(PlayerMark.X)
+    board.make_move(0, 0, PlayerMark.O)
+    board.make_move(0, 1, PlayerMark.O)
+    board.make_move(0, 2, PlayerMark.O)
+
+    assert ai._get_terminal_score(board, depth=2) == LOSS_SCORE + 2
+
+
+def test_terminal_score_returns_draw_score() -> None:
+    """A drawn board should receive the neutral draw score."""
+    board = Board()
+    ai = MinMax(PlayerMark.X)
+    moves = [
+        (0, 0, PlayerMark.X),
+        (0, 1, PlayerMark.O),
+        (0, 2, PlayerMark.X),
+        (1, 0, PlayerMark.X),
+        (1, 1, PlayerMark.O),
+        (1, 2, PlayerMark.O),
+        (2, 0, PlayerMark.O),
+        (2, 1, PlayerMark.X),
+        (2, 2, PlayerMark.X),
+    ]
+    for row, column, player in moves:
+        board.make_move(row, column, player)
+
+    assert ai._get_terminal_score(board, depth=4) == DRAW_SCORE
 
 
 def test_ai_uses_last_position() -> None:
