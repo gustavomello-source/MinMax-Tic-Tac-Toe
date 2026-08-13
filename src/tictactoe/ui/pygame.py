@@ -77,9 +77,13 @@ class PygameApp:
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 self._play_move_at(event.pos)
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_r:
-                self.game.reset()
-                self._play_opponent_turn()
-                self._update_window_title()
+                self._reset_game()
+
+    def _reset_game(self) -> None:
+        """Reset the game and restore the configured opening turn."""
+        self.game.reset()
+        self._play_opponent_turn()
+        self._update_window_title()
 
     def _play_move_at(self, mouse_position: tuple[int, int]) -> None:
         """Delegate the board position at a mouse click to the game."""
