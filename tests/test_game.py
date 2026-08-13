@@ -1,5 +1,6 @@
 from tictactoe.ai.minmax import MinMax
 from tictactoe.game.game import TicTacToeGame
+from tictactoe.game.game_status import GameStatus
 from tictactoe.game.player_mark import PlayerMark
 
 
@@ -16,6 +17,25 @@ def test_game_starts_with_x_by_default() -> None:
     game = TicTacToeGame()
 
     assert game.current_player == PlayerMark.X
+
+
+def test_new_game_is_in_progress() -> None:
+    """A new game should report an active lifecycle status."""
+    game = TicTacToeGame()
+
+    assert game.status == GameStatus.IN_PROGRESS
+
+
+def test_winning_game_reports_won_status() -> None:
+    """A game with a winner should report a won lifecycle status."""
+    game = TicTacToeGame()
+    game.play_move(row=0, column=0)
+    game.play_move(row=1, column=0)
+    game.play_move(row=0, column=1)
+    game.play_move(row=1, column=1)
+    game.play_move(row=0, column=2)
+
+    assert game.status == GameStatus.WON
 
 
 def test_game_accepts_a_custom_starting_player() -> None:

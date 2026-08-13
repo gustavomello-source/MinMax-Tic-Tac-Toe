@@ -1,6 +1,7 @@
 """Turn-based game flow for Tic Tac Toe."""
 
 from tictactoe.game.board import Board
+from tictactoe.game.game_status import GameStatus
 from tictactoe.game.move_selector import MoveSelector
 from tictactoe.game.player_mark import PlayerMark
 
@@ -13,6 +14,17 @@ class TicTacToeGame:
         self.board = Board()
         self.starting_player = starting_player
         self.current_player = starting_player
+
+    @property
+    def status(self) -> GameStatus:
+        """Return the current lifecycle status of the game."""
+        if self.board.get_winner() is not None:
+            return GameStatus.WON
+
+        if self.board.is_draw():
+            return GameStatus.DRAW
+
+        return GameStatus.IN_PROGRESS
 
     def play_move(self, row: int, column: int) -> bool:
         """Play a move for the current player when the move is legal."""
