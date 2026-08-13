@@ -100,6 +100,18 @@ class MinMax:
             depth + 1,
         )
 
+    def _get_move_scores(
+        self,
+        board: Board,
+        current_player: PlayerMark,
+        depth: int,
+    ) -> list[int]:
+        """Return scores for every move available to the current player."""
+        return [
+            self._evaluate_move(board, row, column, current_player, depth)
+            for row, column in board.get_available_positions()
+        ]
+
     def _minmax(
         self,
         board: Board,

@@ -169,6 +169,17 @@ def test_terminal_score_returns_draw_score() -> None:
     assert ai._get_terminal_score(board, depth=4) == DRAW_SCORE
 
 
+def test_move_scores_include_every_available_move() -> None:
+    """Move scoring should evaluate each position available to a player."""
+    board = Board()
+    board.make_move(0, 0, PlayerMark.X)
+    ai = MinMax(PlayerMark.O)
+
+    scores = ai._get_move_scores(board, PlayerMark.O, depth=0)
+
+    assert len(scores) == len(board.get_available_positions())
+
+
 def test_ai_uses_last_position() -> None:
     """The AI should choose the final available position."""
     board = Board()
