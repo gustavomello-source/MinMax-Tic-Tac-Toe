@@ -18,7 +18,7 @@ class TicTacToeGame:
     @property
     def status(self) -> GameStatus:
         """Return the current lifecycle status of the game."""
-        if self.board.get_winner() is not None:
+        if self.winner is not None:
             return GameStatus.WON
 
         if self.board.is_draw():
