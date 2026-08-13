@@ -37,17 +37,14 @@ class MinMax:
 
         best_move: tuple[int, int] | None = None
         best_score = LOSS_SCORE
-        opponent = self.ai_player.opponent
-
         for row, column in board.get_available_positions():
-            simulated_board = self._simulate_move(
+            score = self._evaluate_move(
                 board,
                 row,
                 column,
                 self.ai_player,
+                depth=0,
             )
-
-            score = self._minmax(simulated_board, opponent, depth=1)
 
             if best_move is None or score > best_score:
                 best_score = score
