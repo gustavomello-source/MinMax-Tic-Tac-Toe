@@ -140,8 +140,14 @@ class PyGameBoard:
             return
 
         center = (
-            col * CELL_SIZE + CELL_SIZE // 2,
-            row * CELL_SIZE + CELL_SIZE // 2,
+            col * self.board_layout.cell_width
+            + self.board_layout.cell_width // 2,
+            row * self.board_layout.cell_height
+            + self.board_layout.cell_height // 2,
         )
-        radius = CELL_SIZE // 2 - MARK_PADDING
+        shortest_cell_side = min(
+            self.board_layout.cell_width,
+            self.board_layout.cell_height,
+        )
+        radius = shortest_cell_side // 4
         pygame.draw.circle(self._screen, O_COLOR, center, radius, MARK_WIDTH)
