@@ -32,6 +32,20 @@ def test_ai_prefers_immediate_win() -> None:
     assert move == (0, 2)
 
 
+def test_ai_delays_unavoidable_loss() -> None:
+    """The AI should choose the move that postpones a forced loss."""
+    board = Board()
+    ai = MinMax(PlayerMark.X)
+    board.make_move(1, 2, PlayerMark.O)
+    board.make_move(2, 0, PlayerMark.X)
+    board.make_move(2, 1, PlayerMark.X)
+    board.make_move(2, 2, PlayerMark.O)
+
+    move = ai.get_best_move(board)
+
+    assert move == (0, 2)
+
+
 def test_ai_blocks() -> None:
     """The AI should block an immediate opponent victory."""
     board = Board()
