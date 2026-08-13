@@ -82,6 +82,27 @@ class MinMax:
 
         return None
 
+    def _evaluate_move(
+        self,
+        board: Board,
+        row: int,
+        column: int,
+        current_player: PlayerMark,
+        depth: int,
+    ) -> int:
+        """Return the MinMax score after one simulated move."""
+        simulated_board = self._simulate_move(
+            board,
+            row,
+            column,
+            current_player,
+        )
+        return self._minmax(
+            simulated_board,
+            current_player.opponent,
+            depth + 1,
+        )
+
     def _minmax(
         self,
         board: Board,
