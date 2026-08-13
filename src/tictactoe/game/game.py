@@ -1,6 +1,7 @@
 """Turn-based game flow for Tic Tac Toe."""
 
 from .board import Board
+from .move_selector import MoveSelector
 from .player_mark import PlayerMark
 
 
@@ -24,6 +25,16 @@ class TicTacToeGame:
             self.current_player = self._get_opponent(self.current_player)
 
         return move_was_played
+
+    def play_selected_move(self, move_selector: MoveSelector) -> bool:
+        """Request and play a move from a move selector."""
+        selected_move = move_selector.get_best_move(self.board)
+
+        if selected_move is None:
+            return False
+
+        row, column = selected_move
+        return self.play_move(row, column)
 
     def reset(self) -> None:
         """Reset the board and restore the starting player."""

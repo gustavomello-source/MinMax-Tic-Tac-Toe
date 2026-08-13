@@ -2,6 +2,14 @@ from tictactoe.game.game import TicTacToeGame
 from tictactoe.game.player_mark import PlayerMark
 
 
+class FirstCellSelector:
+    """Select the first cell for game-controller tests."""
+
+    def get_best_move(self, _board: object) -> tuple[int, int]:
+        """Return a fixed board position."""
+        return 0, 0
+
+
 def test_game_starts_with_x_by_default() -> None:
     """X should play first unless another starting player is selected."""
     game = TicTacToeGame()
@@ -74,3 +82,14 @@ def test_reset_starts_a_new_game() -> None:
         for row in game.board.get_current_state()
         for mark in row
     )
+
+
+def test_play_selected_move_delegates_move_selection() -> None:
+    """A selected move should use the game's normal turn handling."""
+    game = TicTacToeGame()
+
+    move_was_played = game.play_selected_move(FirstCellSelector())
+
+    assert move_was_played is True
+    assert game.board.get_current_state()[0][0] == PlayerMark.X
+    assert game.current_player == PlayerMark.O
