@@ -131,7 +131,7 @@ class Board:
         Returns:
             bool: True if the board is full, False otherwise.
         """
-        return all(cell is not None for row in self._cells for cell in row)
+        return self.move_count == BOARD_SIZE * BOARD_SIZE
 
     def is_draw(self) -> bool:
         """Return whether the board is full without a winner."""
