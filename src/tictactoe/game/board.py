@@ -70,8 +70,7 @@ class Board:
         """
         return [
             (row, column)
-            for row in range(BOARD_SIZE)
-            for column in range(BOARD_SIZE)
+            for row, column in BOARD_POSITIONS
             if self.is_position_available(row, column)
         ]
 
