@@ -6,7 +6,7 @@ and provides methods to store current positions, query and update the game state
 such as making moves, checking available positions, and resetting the board.
 """
 
-from .player_mark import PlayerMark
+from tictactoe.game.player_mark import PlayerMark
 
 BOARD_SIZE = 3  # The board is always a 3x3 grid
 
@@ -124,4 +124,3 @@ class Board:
         """
         return self.get_winner() is not None or self.is_full()
 
-    
