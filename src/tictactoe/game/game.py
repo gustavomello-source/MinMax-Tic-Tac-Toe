@@ -22,7 +22,7 @@ class TicTacToeGame:
         move_was_played = self.board.make_move(row, column, self.current_player)
 
         if move_was_played:
-            self.current_player = self._get_opponent(self.current_player)
+            self.current_player = self.current_player.opponent
 
         return move_was_played
 
@@ -40,11 +40,3 @@ class TicTacToeGame:
         """Reset the board and restore the starting player."""
         self.board.reset()
         self.current_player = self.starting_player
-
-    @staticmethod
-    def _get_opponent(player: PlayerMark) -> PlayerMark:
-        """Return the mark that plays after the supplied player."""
-        if player == PlayerMark.X:
-            return PlayerMark.O
-
-        return PlayerMark.X
