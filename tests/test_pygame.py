@@ -5,6 +5,7 @@ from tictactoe.game.game import TicTacToeGame
 from tictactoe.game.player_mark import PlayerMark
 from tictactoe.ui.board_layout import BoardLayout
 from tictactoe.ui.board_renderer import PygameBoardRenderer
+from tictactoe.ui.game_title_formatter import GameTitleFormatter
 from tictactoe.ui.pygame import PygameApp
 
 
@@ -81,6 +82,15 @@ def test_pygame_app_uses_supplied_human_player() -> None:
     pygame_app = PygameApp(human_player=PlayerMark.O)
 
     assert pygame_app.human_player == PlayerMark.O
+
+
+def test_pygame_app_uses_supplied_title_formatter() -> None:
+    """The Pygame app should retain its configured title formatter."""
+    title_formatter = GameTitleFormatter(base_title="Custom Game")
+
+    pygame_app = PygameApp(title_formatter=title_formatter)
+
+    assert pygame_app.title_formatter is title_formatter
 
 
 def test_valid_click_plays_opponent_selected_move() -> None:

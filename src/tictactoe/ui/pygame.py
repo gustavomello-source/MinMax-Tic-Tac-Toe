@@ -3,11 +3,11 @@
 import pygame
 
 from tictactoe.game.game import TicTacToeGame
-from tictactoe.game.game_status import GameStatus
 from tictactoe.game.move_selector import MoveSelector
 from tictactoe.game.player_mark import PlayerMark
 from tictactoe.ui.board_layout import BoardLayout
 from tictactoe.ui.board_renderer import PygameBoardRenderer
+from tictactoe.ui.game_title_formatter import GameTitleFormatter
 
 WINDOW_SIZE = 600
 WINDOW_TITLE = "MinMax Tic Tac Toe"
@@ -21,6 +21,7 @@ class PygameApp:
         game: TicTacToeGame | None = None,
         board_layout: BoardLayout | None = None,
         board_renderer: PygameBoardRenderer | None = None,
+        title_formatter: GameTitleFormatter | None = None,
         opponent_move_selector: MoveSelector | None = None,
         human_player: PlayerMark = PlayerMark.X,
     ) -> None:
@@ -42,6 +43,7 @@ class PygameApp:
             or BoardLayout(width=WINDOW_SIZE, height=WINDOW_SIZE)
         )
         self.board_renderer = board_renderer or PygameBoardRenderer(self.board_layout)
+        self.title_formatter = title_formatter or GameTitleFormatter(WINDOW_TITLE)
         self._screen: pygame.Surface | None = None
         self._clock: pygame.time.Clock | None = None
         self._running = False
@@ -112,16 +114,7 @@ class PygameApp:
 
     def _get_window_title(self) -> str:
         """Return a window title describing the current game state."""
-        if self.game.status == GameStatus.WON:
-            winner = self.game.winner
-            assert winner is not None
-            return f"{WINDOW_TITLE} - {winner.value} wins"
-
-        if self.game.status == GameStatus.DRAW:
-            return f"{WINDOW_TITLE} - Draw"
-
-        current_mark = self.game.current_player.value
-        return f"{WINDOW_TITLE} - {current_mark}'s turn"
+        return self.title_formatter.format(self.game)
 
     def _draw(self) -> None:
         """Draw the current application state."""
