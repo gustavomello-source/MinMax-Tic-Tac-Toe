@@ -41,15 +41,15 @@ class MinMax:
         best_score: int = LOSS_SCORE   
         opponent: PlayerMark = self.ai_player.opponent
 
-        for row, col in board.get_available_positions():
+        for row, column in board.get_available_positions():
             simulated_board: Board = deepcopy(board)
-            simulated_board.make_move(row, col, self.ai_player)
+            simulated_board.make_move(row, column, self.ai_player)
 
             score: int = self._minmax(simulated_board, opponent)
 
             if best_move is None or score > best_score:
                 best_score = score
-                best_move = (row, col)
+                best_move = (row, column)
 
         return best_move
     def _minmax(self, board: Board, current_player: PlayerMark) -> int:
@@ -77,9 +77,9 @@ class MinMax:
         if current_player == self.ai_player:
             best_score: int = LOSS_SCORE
 
-            for row, col in board.get_available_positions():
+            for row, column in board.get_available_positions():
                 simulated_board: Board = deepcopy(board)
-                simulated_board.make_move(row, col, current_player)
+                simulated_board.make_move(row, column, current_player)
 
                 score: int = self._minmax(simulated_board, next_player)
                 best_score = max(best_score, score)
@@ -88,9 +88,9 @@ class MinMax:
 
         best_score = WIN_SCORE
 
-        for row, col in board.get_available_positions():
+        for row, column in board.get_available_positions():
             simulated_board = deepcopy(board)
-            simulated_board.make_move(row, col, current_player)
+            simulated_board.make_move(row, column, current_player)
 
             score = self._minmax(simulated_board, next_player)
             best_score = min(best_score, score)
