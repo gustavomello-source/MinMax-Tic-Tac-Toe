@@ -139,4 +139,4 @@ class Board:
         Returns:
             bool: True if there is a winner or the board is full, False otherwise.
         """
-        return self.get_winner() is not None or self.is_full()
+        return self.get_winner() is not None or self.is_draw()
