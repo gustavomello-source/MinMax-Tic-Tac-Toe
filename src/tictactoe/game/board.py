@@ -56,7 +56,7 @@ class Board:
             (row, column)
             for row in range(BOARD_SIZE)
             for column in range(BOARD_SIZE)
-            if self._cells[row][column] is None
+            if self.is_position_available(row, column)
         ]
 
     def get_current_state(self) -> list[list[PlayerMark | None]]:
