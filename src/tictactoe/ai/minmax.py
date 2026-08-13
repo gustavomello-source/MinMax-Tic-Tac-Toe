@@ -7,8 +7,8 @@ and selects the best move for the AI player.
 
 from copy import deepcopy
 
-from ..game.board import Board
-from ..game.player_mark import PlayerMark
+from tictactoe.game.board import Board
+from tictactoe.game.player_mark import PlayerMark
 
 WIN_SCORE = 1
 LOSS_SCORE = -1
