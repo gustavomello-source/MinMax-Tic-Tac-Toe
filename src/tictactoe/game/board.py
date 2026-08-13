@@ -9,6 +9,7 @@ such as making moves, checking available positions, and resetting the board.
 from tictactoe.game.player_mark import PlayerMark
 
 BOARD_SIZE = 3  # The board is always a 3x3 grid
+BOARD_AREA = BOARD_SIZE * BOARD_SIZE
 WINNING_LINES = (
     ((0, 0), (0, 1), (0, 2)),
     ((1, 0), (1, 1), (1, 2)),
@@ -131,7 +132,7 @@ class Board:
         Returns:
             bool: True if the board is full, False otherwise.
         """
-        return self.move_count == BOARD_SIZE * BOARD_SIZE
+        return self.move_count == BOARD_AREA
 
     def is_draw(self) -> bool:
         """Return whether the board is full without a winner."""
