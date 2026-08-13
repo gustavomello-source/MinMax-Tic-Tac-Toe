@@ -170,13 +170,10 @@ def test_r_key_resets_game() -> None:
 def test_window_title_shows_current_player() -> None:
     """The window title should identify whose turn it is."""
     game = TicTacToeGame()
-    pygame_board = PygameApp(game=game)
-    pygame.init()
+    pygame_app = PygameApp(game=game)
 
-    pygame_board._update_window_title()
+    window_title = pygame_app._get_window_title()
 
-    window_title, _ = pygame.display.get_caption()
-    pygame.quit()
     assert window_title == "MinMax Tic Tac Toe - X's turn"
 
 
@@ -188,13 +185,10 @@ def test_window_title_shows_winner() -> None:
     game.play_move(row=0, column=1)
     game.play_move(row=1, column=1)
     game.play_move(row=0, column=2)
-    pygame_board = PygameApp(game=game)
-    pygame.init()
+    pygame_app = PygameApp(game=game)
 
-    pygame_board._update_window_title()
+    window_title = pygame_app._get_window_title()
 
-    window_title, _ = pygame.display.get_caption()
-    pygame.quit()
     assert window_title == "MinMax Tic Tac Toe - X wins"
 
 
@@ -214,11 +208,8 @@ def test_window_title_shows_draw() -> None:
     ]
     for row, column in moves:
         game.play_move(row, column)
-    pygame_board = PygameApp(game=game)
-    pygame.init()
+    pygame_app = PygameApp(game=game)
 
-    pygame_board._update_window_title()
+    window_title = pygame_app._get_window_title()
 
-    window_title, _ = pygame.display.get_caption()
-    pygame.quit()
     assert window_title == "MinMax Tic Tac Toe - Draw"
