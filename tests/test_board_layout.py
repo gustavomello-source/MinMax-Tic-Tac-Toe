@@ -1,6 +1,14 @@
 from tictactoe.ui.board_layout import BoardLayout
 
 
+def test_layout_calculates_cell_dimensions() -> None:
+    """The layout should divide its dimensions evenly across the board."""
+    layout = BoardLayout(width=600, height=300)
+
+    assert layout.cell_width == 200
+    assert layout.cell_height == 100
+
+
 def test_get_board_position_returns_cell_at_coordinates() -> None:
     """Coordinates inside the layout should map to a board position."""
     layout = BoardLayout(width=600, height=600)
