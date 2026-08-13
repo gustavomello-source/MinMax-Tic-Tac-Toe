@@ -43,7 +43,11 @@ class PyGameBoard:
         pygame.init()
 
         try:
-            self._screen = pygame.display.set_mode((WINDOW_SIZE, WINDOW_SIZE))
+            window_dimensions = (
+                self.board_layout.width,
+                self.board_layout.height,
+            )
+            self._screen = pygame.display.set_mode(window_dimensions)
             pygame.display.set_caption(WINDOW_TITLE)
             self._clock = pygame.time.Clock()
             self._running = True
