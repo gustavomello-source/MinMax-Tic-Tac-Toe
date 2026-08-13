@@ -38,6 +38,18 @@ def test_winning_game_reports_won_status() -> None:
     assert game.status == GameStatus.WON
 
 
+def test_winning_game_exposes_winner() -> None:
+    """A completed winning game should expose the winning player."""
+    game = TicTacToeGame()
+    game.play_move(row=0, column=0)
+    game.play_move(row=1, column=0)
+    game.play_move(row=0, column=1)
+    game.play_move(row=1, column=1)
+    game.play_move(row=0, column=2)
+
+    assert game.winner == PlayerMark.X
+
+
 def test_drawn_game_reports_draw_status() -> None:
     """A full game without a winner should report a draw status."""
     game = TicTacToeGame()

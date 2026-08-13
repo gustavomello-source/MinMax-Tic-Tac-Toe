@@ -26,6 +26,11 @@ class TicTacToeGame:
 
         return GameStatus.IN_PROGRESS
 
+    @property
+    def winner(self) -> PlayerMark | None:
+        """Return the winning player, if the game has one."""
+        return self.board.get_winner()
+
     def play_move(self, row: int, column: int) -> bool:
         """Play a move for the current player when the move is legal."""
         if self.status != GameStatus.IN_PROGRESS:
