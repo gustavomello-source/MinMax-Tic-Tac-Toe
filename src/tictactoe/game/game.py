@@ -50,6 +50,9 @@ class TicTacToeGame:
 
     def play_selected_move(self, move_selector: MoveSelector) -> bool:
         """Request and play a move from a move selector."""
+        if self.is_over:
+            return False
+
         selected_move = move_selector.get_best_move(self.board)
 
         if selected_move is None:

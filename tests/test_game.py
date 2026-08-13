@@ -12,6 +12,18 @@ class FirstCellSelector:
         return 0, 0
 
 
+class TrackingMoveSelector:
+    """Track whether move selection was requested."""
+
+    def __init__(self) -> None:
+        self.was_called = False
+
+    def get_best_move(self, _board: object) -> tuple[int, int]:
+        """Record the request and return a fixed position."""
+        self.was_called = True
+        return 2, 2
+
+
 def test_game_starts_with_x_by_default() -> None:
     """X should play first unless another starting player is selected."""
     game = TicTacToeGame()
@@ -162,3 +174,19 @@ def test_game_accepts_minmax_as_move_selector() -> None:
 
     assert move_was_played is True
     assert game.board.get_winner() == PlayerMark.X
+
+
+def test_terminal_game_does_not_request_selected_move() -> None:
+    """A completed game should not ask a selector for another move."""
+    game = TicTacToeGame()
+    game.play_move(row=0, column=0)
+    game.play_move(row=1, column=0)
+    game.play_move(row=0, column=1)
+    game.play_move(row=1, column=1)
+    game.play_move(row=0, column=2)
+    move_selector = TrackingMoveSelector()
+
+    move_was_played = game.play_selected_move(move_selector)
+
+    assert move_was_played is False
+    assert move_selector.was_called is False
