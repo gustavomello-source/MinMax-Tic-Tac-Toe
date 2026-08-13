@@ -1,4 +1,10 @@
-from tictactoe.game.board import BOARD_SIZE, WINNING_LINES, Board
+from tictactoe.game.board import (
+    BOARD_AREA,
+    BOARD_POSITIONS,
+    BOARD_SIZE,
+    WINNING_LINES,
+    Board,
+)
 from tictactoe.game.player_mark import PlayerMark
 
 
@@ -16,6 +22,12 @@ def test_board_is_initialized_empty() -> None:
 def test_board_defines_all_winning_lines() -> None:
     """A 3x3 board should define rows, columns, and diagonals as winning lines."""
     assert len(WINNING_LINES) == 8
+
+
+def test_board_defines_every_position() -> None:
+    """Board positions should contain each row and column coordinate once."""
+    assert len(BOARD_POSITIONS) == BOARD_AREA
+    assert len(set(BOARD_POSITIONS)) == BOARD_AREA
 
 
 def test_make_move_places_player_mark() -> None:
