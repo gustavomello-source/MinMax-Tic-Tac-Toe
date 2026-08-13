@@ -1,9 +1,31 @@
-# Technical Development History
+# Changelog and Technical Decision Record
 
-This document records the verified technical evolution of the `feature/pygame`
-branch. It explains what changed, why each group of changes was necessary, which
-commits introduced it, and what remains incomplete. Git history and automated
-tests remain the authoritative implementation record.
+This document records the complete verified technical evolution of the repository
+through the `feature/pygame` milestone. It explains what changed, why each group
+of changes was necessary, and which commits introduced it. Git history and
+automated tests remain the authoritative line-by-line implementation record.
+
+The entries are organized by coherent development phase because many decisions
+were deliberately introduced through several small commits. This preserves the
+reason for each change without presenting internal refactors as independent
+product releases.
+
+## Repository Foundation
+
+Before the Pygame milestone, the repository established the following foundation:
+
+- `30a17e6` created the repository with its license and initial README.
+- `4c0dacd` added Python project metadata, the `src` package layout, test layout,
+  and development-tool configuration.
+- `afe29a3` implemented `Board` and `PlayerMark` with their initial tests.
+- `4a962b8` integrated the board feature into the development line.
+- `35719fc` documented the initial project, installation, and directory structure.
+- `28e2d82` added winner and terminal board-state detection.
+- `da3b38d` added the first recursive MinMax implementation and its tests.
+
+Why: these commits supplied the domain and algorithmic core on which the runnable
+application could evolve. The Pygame work extends this foundation rather than
+replacing it.
 
 ## Original Baseline
 
@@ -243,9 +265,9 @@ with an immutable value object, state is private and copies are explicit through
 
 ### Protocols are introduced only at substitution boundaries
 
-`MoveSelector` and `BoardRenderer` exist because multiple implementations or test
-doubles are useful. A title formatter protocol is the current in-progress step for
-the same reason. Internal helpers do not receive protocols merely for style.
+`MoveSelector`, `BoardRenderer`, and `TitleFormatter` exist because alternative
+implementations or test doubles are useful at those boundaries. Internal helpers
+do not receive protocols merely for style.
 
 ### Pygame does not own rules
 
@@ -263,7 +285,7 @@ loss preferable to a draw or a draw preferable to a win.
 At this checkpoint, `HEAD` is:
 
 ```text
-77141b7 docs: align README with Pygame application
+47be2ca docs: record completed Pygame checkpoint
 ```
 
 `TitleFormatter` now defines the title-formatting boundary consumed by
@@ -304,6 +326,15 @@ project requirement.
 The complete branch history remains the authoritative line-by-line record. The
 following ledger groups every completed atomic increment by purpose while retaining
 the boundary commits that formed each phase.
+
+### Repository foundation
+
+- `30a17e6` initialize the repository.
+- `4c0dacd` add project metadata and package structure.
+- `afe29a3`, `4a962b8` implement and integrate the initial Board model.
+- `35719fc` document the original project setup.
+- `28e2d82` add terminal board-state detection.
+- `da3b38d` implement the original MinMax algorithm.
 
 ### Application and initial Pygame slice
 
@@ -381,6 +412,8 @@ the boundary commits that formed each phase.
 - `e1bc1f0`, `0c39739`, `ef279d9`, `c83a937`, `b9816f7` extract, adopt, and
   cover `GameTitleFormatter`.
 - `7de2950`, `9c421f7` define and adopt the `BoardRenderer` abstraction.
+- `ac01040` introduces the technical change and decision record.
 - `d4f04ad`, `f262f76` define and adopt the `TitleFormatter` abstraction.
 - `3940fc2` records the verified architecture checkpoint.
 - `77141b7` aligns the README with the implemented application and UV workflow.
+- `47be2ca` records completion of the Pygame milestone and runtime verification.

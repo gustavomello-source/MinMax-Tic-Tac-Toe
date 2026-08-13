@@ -112,8 +112,8 @@ tests/
 └── test_pygame.py
 ```
 
-The detailed rationale and incremental change record are maintained in
-[`TECHNICAL_HISTORY.md`](TECHNICAL_HISTORY.md).
+The complete change record and technical rationale are maintained in
+[`CHANGELOG.md`](CHANGELOG.md).
 
 ## License
 
