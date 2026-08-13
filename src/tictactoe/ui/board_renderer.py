@@ -6,6 +6,7 @@ from tictactoe.game.board import BOARD_SIZE, Board
 from tictactoe.game.player_mark import PlayerMark
 from tictactoe.ui.board_layout import BoardLayout
 
+BACKGROUND_COLOR = (245, 245, 245)
 GRID_COLOR = (45, 45, 45)
 X_COLOR = (50, 100, 200)
 O_COLOR = (220, 80, 80)
@@ -19,6 +20,12 @@ class PygameBoardRenderer:
     def __init__(self, board_layout: BoardLayout) -> None:
         """Create a renderer that follows the supplied board layout."""
         self.board_layout = board_layout
+
+    def draw_board(self, surface: pygame.Surface, board: Board) -> None:
+        """Draw the background, grid, and current board marks."""
+        surface.fill(BACKGROUND_COLOR)
+        self.draw_grid(surface)
+        self.draw_marks(surface, board)
 
     def draw_grid(self, surface: pygame.Surface) -> None:
         """Draw the lines that divide the board cells."""

@@ -10,9 +10,6 @@ WINDOW_SIZE = 600
 WINDOW_TITLE = "MinMax Tic Tac Toe"
 FRAMES_PER_SECOND = 60
 
-BACKGROUND_COLOR = (245, 245, 245)
-
-
 class PygameApp:
     """Manage the Pygame application lifecycle and user interface."""
 
@@ -94,6 +91,4 @@ class PygameApp:
         if self._screen is None:
             return
 
-        self._screen.fill(BACKGROUND_COLOR)
-        self.board_renderer.draw_grid(self._screen)
-        self.board_renderer.draw_marks(self._screen, self.game.board)
+        self.board_renderer.draw_board(self._screen, self.game.board)
