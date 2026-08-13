@@ -40,8 +40,12 @@ class MinMax:
         opponent = self.ai_player.opponent
 
         for row, column in board.get_available_positions():
-            simulated_board = board.copy()
-            simulated_board.make_move(row, column, self.ai_player)
+            simulated_board = self._simulate_move(
+                board,
+                row,
+                column,
+                self.ai_player,
+            )
 
             score = self._minmax(simulated_board, opponent, depth=1)
 
