@@ -2,7 +2,8 @@
 
 import pygame
 
-from tictactoe.game.board import BOARD_SIZE
+from tictactoe.game.board import BOARD_SIZE, Board
+from tictactoe.game.player_mark import PlayerMark
 from tictactoe.ui.board_layout import BoardLayout
 
 GRID_COLOR = (45, 45, 45)
@@ -38,6 +39,15 @@ class PygameBoardRenderer:
                 (self.board_layout.width, vertical_offset),
                 GRID_WIDTH,
             )
+
+    def draw_marks(self, surface: pygame.Surface, board: Board) -> None:
+        """Draw every mark stored on the board."""
+        for row_index, row in enumerate(board.get_current_state()):
+            for column_index, mark in enumerate(row):
+                if mark == PlayerMark.X:
+                    self.draw_x(surface, row_index, column_index)
+                elif mark == PlayerMark.O:
+                    self.draw_o(surface, row_index, column_index)
 
     def draw_x(self, surface: pygame.Surface, row: int, column: int) -> None:
         """Draw an X in one board cell."""

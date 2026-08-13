@@ -3,7 +3,6 @@
 import pygame
 
 from tictactoe.game.game import TicTacToeGame
-from tictactoe.game.player_mark import PlayerMark
 from tictactoe.ui.board_layout import BoardLayout
 from tictactoe.ui.board_renderer import PygameBoardRenderer
 
@@ -97,21 +96,4 @@ class PygameApp:
 
         self._screen.fill(BACKGROUND_COLOR)
         self.board_renderer.draw_grid(self._screen)
-        self._draw_marks()
-
-    def _draw_marks(self) -> None:
-        """Draw every mark stored in the board model."""
-        for row_index, row in enumerate(self.game.board.get_current_state()):
-            for col_index, mark in enumerate(row):
-                if mark == PlayerMark.X:
-                    self.board_renderer.draw_x(
-                        self._screen,
-                        row_index,
-                        col_index,
-                    )
-                elif mark == PlayerMark.O:
-                    self.board_renderer.draw_o(
-                        self._screen,
-                        row_index,
-                        col_index,
-                    )
+        self.board_renderer.draw_marks(self._screen, self.game.board)

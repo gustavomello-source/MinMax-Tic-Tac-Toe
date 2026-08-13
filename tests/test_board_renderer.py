@@ -1,5 +1,7 @@
 import pygame
 
+from tictactoe.game.board import Board
+from tictactoe.game.player_mark import PlayerMark
 from tictactoe.ui.board_layout import BoardLayout
 from tictactoe.ui.board_renderer import (
     GRID_COLOR,
@@ -40,3 +42,16 @@ def test_draw_o_draws_mark_in_selected_cell() -> None:
     renderer.draw_o(surface, row=1, column=1)
 
     assert surface.get_at((150, 125))[:3] == O_COLOR
+
+
+def test_draw_marks_renders_board_state() -> None:
+    """Mark rendering should select the drawing for each stored mark."""
+    board = Board()
+    board.make_move(row=1, col=1, player=PlayerMark.X)
+    board_layout = BoardLayout(width=300, height=300)
+    renderer = PygameBoardRenderer(board_layout)
+    surface = pygame.Surface((300, 300))
+
+    renderer.draw_marks(surface, board)
+
+    assert surface.get_at((125, 125))[:3] == X_COLOR
