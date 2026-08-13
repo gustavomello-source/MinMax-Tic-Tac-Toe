@@ -78,9 +78,13 @@ class PygameApp:
         if board_position is not None:
             row, column = board_position
             if self.game.play_move(row, column):
-                if self.opponent_move_selector is not None:
-                    self.game.play_selected_move(self.opponent_move_selector)
+                self._play_opponent_turn()
                 self._update_window_title()
+
+    def _play_opponent_turn(self) -> None:
+        """Play one move using the configured opponent selector."""
+        if self.opponent_move_selector is not None:
+            self.game.play_selected_move(self.opponent_move_selector)
 
     def _update_window_title(self) -> None:
         """Display the winner or current player in the window title."""
