@@ -118,8 +118,6 @@ class MinMax:
         if terminal_score is not None:
             return terminal_score
 
-        next_player = current_player.opponent
-
         if current_player == self.ai_player:
             best_score = LOSS_SCORE
 
@@ -138,14 +136,13 @@ class MinMax:
         best_score = WIN_SCORE
 
         for row, column in board.get_available_positions():
-            simulated_board = self._simulate_move(
+            score = self._evaluate_move(
                 board,
                 row,
                 column,
                 current_player,
+                depth,
             )
-
-            score = self._minmax(simulated_board, next_player, depth + 1)
             best_score = min(best_score, score)
 
         return best_score
