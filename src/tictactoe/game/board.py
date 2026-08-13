@@ -42,8 +42,7 @@ class Board:
             bool: True if the move was successful, False otherwise.
         """
         if (
-            0 <= row < BOARD_SIZE
-            and 0 <= column < BOARD_SIZE
+            self.contains_position(row, column)
             and self._cells[row][column] is None
         ):
             self._cells[row][column] = player
