@@ -5,8 +5,6 @@ This module defines the MinMax class, which evaluates possible moves
 and selects the best move for the AI player.
 """
 
-from copy import deepcopy
-
 from tictactoe.game.board import Board
 from tictactoe.game.player_mark import PlayerMark
 
@@ -42,7 +40,7 @@ class MinMax:
         opponent = self.ai_player.opponent
 
         for row, column in board.get_available_positions():
-            simulated_board = deepcopy(board)
+            simulated_board = board.copy()
             simulated_board.make_move(row, column, self.ai_player)
 
             score = self._minmax(simulated_board, opponent)
@@ -78,7 +76,7 @@ class MinMax:
             best_score = LOSS_SCORE
 
             for row, column in board.get_available_positions():
-                simulated_board = deepcopy(board)
+                simulated_board = board.copy()
                 simulated_board.make_move(row, column, current_player)
 
                 score = self._minmax(simulated_board, next_player)
@@ -89,7 +87,7 @@ class MinMax:
         best_score = WIN_SCORE
 
         for row, column in board.get_available_positions():
-            simulated_board = deepcopy(board)
+            simulated_board = board.copy()
             simulated_board.make_move(row, column, current_player)
 
             score = self._minmax(simulated_board, next_player)
