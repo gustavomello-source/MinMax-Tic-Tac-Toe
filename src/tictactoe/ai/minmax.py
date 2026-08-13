@@ -133,16 +133,4 @@ class MinMax:
         if current_player == self.ai_player:
             return max(self._get_move_scores(board, current_player, depth))
 
-        best_score = WIN_SCORE
-
-        for row, column in board.get_available_positions():
-            score = self._evaluate_move(
-                board,
-                row,
-                column,
-                current_player,
-                depth,
-            )
-            best_score = min(best_score, score)
-
-        return best_score
+        return min(self._get_move_scores(board, current_player, depth))
