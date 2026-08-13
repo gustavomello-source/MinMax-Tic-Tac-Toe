@@ -24,3 +24,26 @@ def test_formatter_shows_winner() -> None:
     title = formatter.format(game)
 
     assert title == "Tic Tac Toe - X wins"
+
+
+def test_formatter_shows_draw() -> None:
+    """A drawn game title should identify the draw."""
+    game = TicTacToeGame()
+    moves = [
+        (0, 0),
+        (0, 1),
+        (0, 2),
+        (1, 1),
+        (1, 0),
+        (1, 2),
+        (2, 1),
+        (2, 0),
+        (2, 2),
+    ]
+    for row, column in moves:
+        game.play_move(row, column)
+    formatter = GameTitleFormatter(base_title="Tic Tac Toe")
+
+    title = formatter.format(game)
+
+    assert title == "Tic Tac Toe - Draw"
