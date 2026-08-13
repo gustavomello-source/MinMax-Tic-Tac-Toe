@@ -109,6 +109,16 @@ def test_board_is_not_changed() -> None:
     assert board.get_current_state() == state_before
 
 
+def test_simulated_move_does_not_change_original_board() -> None:
+    """A simulated move should be applied only to a copied board."""
+    board = Board()
+
+    simulated_board = MinMax._simulate_move(board, 1, 1, PlayerMark.X)
+
+    assert board.get_mark(1, 1) is None
+    assert simulated_board.get_mark(1, 1) == PlayerMark.X
+
+
 def test_ai_uses_last_position() -> None:
     """The AI should choose the final available position."""
     board = Board()

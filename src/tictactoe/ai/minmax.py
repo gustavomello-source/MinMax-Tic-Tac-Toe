@@ -50,6 +50,19 @@ class MinMax:
                 best_move = (row, column)
 
         return best_move
+
+    @staticmethod
+    def _simulate_move(
+        board: Board,
+        row: int,
+        column: int,
+        player: PlayerMark,
+    ) -> Board:
+        """Return a copied board with one simulated move."""
+        simulated_board = board.copy()
+        simulated_board.make_move(row, column, player)
+        return simulated_board
+
     def _minmax(
         self,
         board: Board,
