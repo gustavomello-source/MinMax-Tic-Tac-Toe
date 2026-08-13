@@ -1,8 +1,8 @@
 """Turn-based game flow for Tic Tac Toe."""
 
-from .board import Board
-from .move_selector import MoveSelector
-from .player_mark import PlayerMark
+from tictactoe.game.board import Board
+from tictactoe.game.move_selector import MoveSelector
+from tictactoe.game.player_mark import PlayerMark
 
 
 class TicTacToeGame:
