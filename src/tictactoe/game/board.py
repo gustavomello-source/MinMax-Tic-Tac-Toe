@@ -27,9 +27,9 @@ class Board:
 
     def reset(self) -> None:
         """Reset the board to its initial empty state."""
-        for i in range(BOARD_SIZE):
-            for j in range(BOARD_SIZE):
-                self._cells[i][j] = None
+        for row in range(BOARD_SIZE):
+            for column in range(BOARD_SIZE):
+                self._cells[row][column] = None
 
     def make_move(self, row: int, col: int, player: PlayerMark) -> bool:
         """Make a move on the board for the given player ('X' or 'O') at the specified position.
@@ -57,10 +57,10 @@ class Board:
             list[tuple[int, int]]: A list of tuples representing the available positions (row, col).
         """
         return [
-            (i, j)
-            for i in range(BOARD_SIZE)
-            for j in range(BOARD_SIZE)
-            if self._cells[i][j] is None
+            (row, column)
+            for row in range(BOARD_SIZE)
+            for column in range(BOARD_SIZE)
+            if self._cells[row][column] is None
         ]
 
     def get_current_state(self) -> list[list[PlayerMark | None]]:
