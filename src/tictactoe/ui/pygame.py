@@ -95,7 +95,7 @@ class PygameApp:
     def _update_window_title(self) -> None:
         """Display the winner or current player in the window title."""
         if self.game.status == GameStatus.WON:
-            winner = self.game.board.get_winner()
+            winner = self.game.winner
             assert winner is not None
             pygame.display.set_caption(f"{WINDOW_TITLE} - {winner.value} wins")
             return
