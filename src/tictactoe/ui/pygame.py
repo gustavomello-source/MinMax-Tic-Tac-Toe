@@ -5,6 +5,7 @@ import pygame
 from tictactoe.game.board import BOARD_SIZE
 from tictactoe.game.game import TicTacToeGame
 from tictactoe.game.player_mark import PlayerMark
+from tictactoe.ui.board_layout import BoardLayout
 
 WINDOW_SIZE = 600
 WINDOW_TITLE = "MinMax Tic Tac Toe"
@@ -24,9 +25,17 @@ MARK_PADDING = CELL_SIZE // 4
 class PyGameBoard:
     """Manage the Pygame window and render the current board state."""
 
-    def __init__(self, game: TicTacToeGame | None = None) -> None:
+    def __init__(
+        self,
+        game: TicTacToeGame | None = None,
+        board_layout: BoardLayout | None = None,
+    ) -> None:
         """Create a Pygame board for the supplied or a new game."""
         self.game = game if game is not None else TicTacToeGame()
+        self.board_layout = board_layout or BoardLayout(
+            width=WINDOW_SIZE,
+            height=WINDOW_SIZE,
+        )
         self._screen: pygame.Surface | None = None
         self._clock: pygame.time.Clock | None = None
         self._running = False
