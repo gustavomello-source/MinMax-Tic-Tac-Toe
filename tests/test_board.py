@@ -114,6 +114,18 @@ def test_get_current_state_returns_copy() -> None:
     assert board.get_current_state()[0][0] is None
 
 
+def test_copy_returns_independent_board() -> None:
+    """Changing a copied board should not change the original board."""
+    board = Board()
+    board.make_move(row=0, column=0, player=PlayerMark.X)
+
+    copied_board = board.copy()
+    copied_board.make_move(row=1, column=1, player=PlayerMark.O)
+
+    assert copied_board.get_current_state()[0][0] == PlayerMark.X
+    assert board.get_current_state()[1][1] is None
+
+
 def test_get_winner() -> None:
     """Should detect winners in rows, columns and diagonals."""
 

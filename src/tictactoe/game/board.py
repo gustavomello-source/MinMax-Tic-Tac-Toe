@@ -71,6 +71,12 @@ class Board:
         """
         return [row.copy() for row in self._cells]
 
+    def copy(self) -> "Board":
+        """Return an independent copy of the board."""
+        copied_board = Board()
+        copied_board._cells = self.get_current_state()
+        return copied_board
+
 
 
 
