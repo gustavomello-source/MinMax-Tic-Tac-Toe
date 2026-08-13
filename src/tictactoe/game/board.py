@@ -95,6 +95,11 @@ class Board:
             and self._cells[row][column] is None
         )
 
+    @property
+    def move_count(self) -> int:
+        """Return the number of marks placed on the board."""
+        return sum(cell is not None for row in self._cells for cell in row)
+
     def copy(self) -> "Board":
         """Return an independent copy of the board."""
         copied_board = Board()

@@ -163,6 +163,15 @@ def test_occupied_position_is_not_available() -> None:
     assert board.is_position_available(row=1, column=1) is False
 
 
+def test_move_count_reports_placed_marks() -> None:
+    """Move count should report how many positions contain marks."""
+    board = Board()
+    board.make_move(row=0, column=0, player=PlayerMark.X)
+    board.make_move(row=1, column=1, player=PlayerMark.O)
+
+    assert board.move_count == 2
+
+
 def test_copy_returns_independent_board() -> None:
     """Changing a copied board should not change the original board."""
     board = Board()
