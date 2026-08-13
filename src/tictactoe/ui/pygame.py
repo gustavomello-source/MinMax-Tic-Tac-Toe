@@ -2,9 +2,9 @@
 
 import pygame
 
-from game.board import BOARD_SIZE
-from game.game import TicTacToeGame
-from game.player_mark import PlayerMark
+from tictactoe.game.board import BOARD_SIZE
+from tictactoe.game.game import TicTacToeGame
+from tictactoe.game.player_mark import PlayerMark
 
 WINDOW_SIZE = 600
 WINDOW_TITLE = "MinMax Tic Tac Toe"
