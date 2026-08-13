@@ -120,10 +120,12 @@ class PyGameBoard:
         if self._screen is None:
             return
 
-        left = col * CELL_SIZE + MARK_PADDING
-        right = (col + 1) * CELL_SIZE - MARK_PADDING
-        top = row * CELL_SIZE + MARK_PADDING
-        bottom = (row + 1) * CELL_SIZE - MARK_PADDING
+        horizontal_padding = self.board_layout.cell_width // 4
+        vertical_padding = self.board_layout.cell_height // 4
+        left = col * self.board_layout.cell_width + horizontal_padding
+        right = (col + 1) * self.board_layout.cell_width - horizontal_padding
+        top = row * self.board_layout.cell_height + vertical_padding
+        bottom = (row + 1) * self.board_layout.cell_height - vertical_padding
 
         pygame.draw.line(
             self._screen, X_COLOR, (left, top), (right, bottom), MARK_WIDTH
