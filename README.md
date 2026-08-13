@@ -1,179 +1,120 @@
-# MinMax-Tic-Tac-Toe
-Projeto de implementação do algoritmo MinMax para o jogo da velha (Tic-Tac-Toe) em Python.
+# MinMax Tic Tac Toe
 
-<!-- TABLE OF CONTENTS -->
+A Tic Tac Toe game built with Python and Pygame. The human player uses `X`, and
+a depth-aware MinMax opponent uses `O` to choose outcome-optimal moves.
 
-## Tabela de Conteúdo
+## Requirements
 
-- [MinMax-Tic-Tac-Toe](#minmax-tic-tac-toe)
-  - [Tabela de Conteúdo](#tabela-de-conteúdo)
-  - [Sobre o Projeto](#sobre-o-projeto)
-    - [Feito Com](#feito-com)
-  - [Começando](#começando)
-    - [Pré-requisitos](#pré-requisitos)
-    - [Estrutura de Arquivos](#estrutura-de-arquivos)
-    - [Instalação](#instalação)
-    - [Configuração do Ambiente Virtual](#configuração-do-ambiente-virtual)
-      - [Linux/Ubuntu](#linuxubuntu)
-      - [Windows (Command Prompt)](#windows-command-prompt)
-    - [Execução do Código](#execução-do-código)
-      - [Linux/Ubuntu](#linuxubuntu-1)
-      - [Windows (Command Prompt)](#windows-command-prompt-1)
-    - [Execução dos Testes](#execução-dos-testes)
-    - [Edição](#edição)
+- Python 3.12 or later
+- [UV](https://docs.astral.sh/uv/)
 
-<!-- ABOUT THE PROJECT -->
+## Installation
 
-## Sobre o Projeto
-
-Este projeto consiste na implementação do algoritmo **Minimax** aplicado ao jogo da velha (Tic-Tac-Toe) utilizando Python. O objetivo é desenvolver uma inteligência artificial capaz de escolher sempre a melhor jogada possível dentro da profundidade
-observada, garantindo que o jogador controlado pelo algoritmo tome as melhores decisões durante o jogo.
-
-### Feito Com
-
-Este projeto foi desenvolvido utilizando as seguintes tecnologias:
-
-- Python 3.12+
-- Pytest
-- Ruff
-
-<!-- GETTING STARTED -->
-
-## Começando
-
-Para começar a utilizar este projeto, é necessário ter alguns pré-requisitos de ambiente.
-
-### Pré-requisitos
-
-1. A utilização do ambiente requer a instalação do Python 3.12 ou superior. Certifique-se de que o Python esteja instalado em seu sistema antes de prosseguir.
-2. Utiliza-se Git para clonar o repositório. Caso não tenha o Git instalado, o usuário pode baixar o projeto como um arquivo ZIP, através da url do repositório, e descompactá-lo em seu sistema.
-
-### Estrutura de Arquivos
-
-A estrutura de arquivos está da seguinte maneira:
+Clone the repository, enter its directory, and synchronize the project and
+development dependencies:
 
 ```bash
-minmax-tic-tac-toe/
-  ├── src/
-  │   ├── tictactoe/
-  │   │   ├── ai/
-  │   │   ├── game/
-  │   │   │   ├── board.py
-  │   │   │   └── player_mark.py
-  │   │   └── ui/
-  │   │   └── utils/
-  ├── tests/
-  │   └── test_board.py
-  ├── .gitignore
-  ├── LICENSE
-  ├── pyproject.toml
-  └── README.md
+git clone <REPOSITORY_URL>
+cd MinMax-Tic-Tac-Toe
+uv sync --extra dev
 ```
 
-### Instalação
+## Running the game
 
-1. Para instalar e utilizar esse projeto, basta clonar o repositório:
+Start the installed package through its module entry point:
 
 ```bash
-git clone <REPO_URL>
+uv run python -m tictactoe
 ```
 
-2. Certifique-se de que você está no diretório do projeto:
+Controls:
+
+- Left-click an empty cell to play as `X`.
+- Press `R` to reset the game.
+- Close the window to exit.
+
+The window title reports whose turn it is and the final result. After a human
+move, the MinMax opponent plays automatically.
+
+## Development checks
+
+Run the complete test suite:
 
 ```bash
-cd minmax-tic-tac-toe
+uv run pytest
 ```
 
-### Configuração do Ambiente Virtual
-
-Crie e ative um ambiente virtual.
-
-#### Linux/Ubuntu
+Run the configured Ruff checks:
 
 ```bash
-python3 -m venv .venv
-
-source .venv/bin/activate
-
-pip install -e ".[dev]"
+uv run ruff check src tests
 ```
 
-#### Windows (Command Prompt)
-
-```cmd
-python -m venv .venv
-
-.venv\Scripts\activate
-
-pip install -e ".[dev]"
-```
-
-O comando acima instala o projeto em modo editável juntamente com todas as dependências de desenvolvimento definidas no arquivo `pyproject.toml`.
-
-### Execução do Código
-
-Após ativar o ambiente virtual, execute:
-
-#### Linux/Ubuntu
+Generate a coverage report:
 
 ```bash
-source .venv/bin/activate
-
-python -m tictactoe
+uv run pytest --cov=src --cov-report=term-missing
 ```
 
-#### Windows (Command Prompt)
+## Architecture
 
-```cmd
-.venv\Scripts\activate
+The code separates game rules from decision-making and presentation:
 
-python -m tictactoe
+- `Board` owns cell state, legal positions, winning lines, and terminal-state
+  queries.
+- `TicTacToeGame` coordinates turns, accepted moves, resets, and game status.
+- `MoveSelector` defines the opponent-selection boundary; `MinMax` implements it.
+- `BoardLayout` maps window coordinates to board positions.
+- `BoardRenderer` defines the drawing boundary; `PygameBoardRenderer` implements
+  it.
+- `TitleFormatter` defines the status-title boundary; `GameTitleFormatter`
+  implements it.
+- `PygameApp` owns the Pygame lifecycle and translates input events into game
+  operations.
+- `main.create_app` is the composition root that connects the Pygame application
+  to the MinMax opponent.
+
+This division keeps domain rules independent of Pygame and allows UI and opponent
+implementations to be injected without changing the game model.
+
+## Project structure
+
+```text
+src/tictactoe/
+├── __main__.py
+├── main.py
+├── ai/
+│   └── minmax.py
+├── game/
+│   ├── board.py
+│   ├── game.py
+│   ├── game_status.py
+│   ├── move_selector.py
+│   └── player_mark.py
+└── ui/
+    ├── board_layout.py
+    ├── board_renderer.py
+    ├── board_renderer_protocol.py
+    ├── game_title_formatter.py
+    ├── pygame.py
+    └── title_formatter.py
+
+tests/
+├── test_board.py
+├── test_board_layout.py
+├── test_board_renderer.py
+├── test_game.py
+├── test_game_status.py
+├── test_game_title_formatter.py
+├── test_main.py
+├── test_minmax.py
+├── test_player_mark.py
+└── test_pygame.py
 ```
 
-### Execução dos Testes
+The detailed rationale and incremental change record are maintained in
+[`TECHNICAL_HISTORY.md`](TECHNICAL_HISTORY.md).
 
-Para executar todos os testes:
+## License
 
-```bash
-pytest
-```
-
-Para exibir informações mais detalhadas:
-
-```bash
-pytest -v
-```
-
-Para gerar um relatório de cobertura:
-
-```bash
-pytest --cov=src --cov-report=term-missing
-```
-
-### Edição
-
-Descrição dos principais diretórios do projeto:
-
-- **src/**
-  Código-fonte da aplicação.
-
-- **src/tictactoe/ai/**
-  Implementação dos algoritmos de inteligência artificial, como o Minimax.
-
-- **src/tictactoe/game/**
-  Implementação da lógica do jogo, incluindo o tabuleiro e as regras.
-
-- **src/tictactoe/ui/**
-  Interface responsável pela interação com o usuário.
-
-- **src/tictactoe/utils/**
-  Classes e funções auxiliares utilizadas pelo projeto.
-
-- **tests/**
-  Testes automatizados utilizando Pytest.
-
-- **pyproject.toml**
-  Configuração do projeto, metadados e dependências.
-
-- **README.md**
-  Documentação do projeto.
+This project is distributed under the terms in [`LICENSE`](LICENSE).
