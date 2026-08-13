@@ -1,6 +1,6 @@
 """Run the Tic Tac Toe application."""
 
-from ui.pygame import PyGameBoard
+from tictactoe.ui.pygame import PyGameBoard
 
 
 def main() -> None:
