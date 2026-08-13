@@ -81,7 +81,13 @@ class PyGameBoard:
                 self._update_window_title()
 
     def _update_window_title(self) -> None:
-        """Display the current player in the window title."""
+        """Display the winner or current player in the window title."""
+        winner = self.game.board.get_winner()
+
+        if winner is not None:
+            pygame.display.set_caption(f"{WINDOW_TITLE} - {winner.value} wins")
+            return
+
         current_mark = self.game.current_player.value
         pygame.display.set_caption(f"{WINDOW_TITLE} - {current_mark}'s turn")
 
