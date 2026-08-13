@@ -73,7 +73,7 @@ class Board:
 
     def get_mark(self, row: int, column: int) -> PlayerMark | None:
         """Return the mark stored at one board position."""
-        if not 0 <= row < BOARD_SIZE or not 0 <= column < BOARD_SIZE:
+        if not self.contains_position(row, column):
             return None
 
         return self._cells[row][column]
