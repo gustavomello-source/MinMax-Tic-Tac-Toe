@@ -49,12 +49,13 @@ class PygameBoardRenderer:
 
     def draw_marks(self, surface: pygame.Surface, board: Board) -> None:
         """Draw every mark stored on the board."""
-        for row_index, row in enumerate(board.get_current_state()):
-            for column_index, mark in enumerate(row):
+        for row in range(BOARD_SIZE):
+            for column in range(BOARD_SIZE):
+                mark = board.get_mark(row, column)
                 if mark == PlayerMark.X:
-                    self.draw_x(surface, row_index, column_index)
+                    self.draw_x(surface, row, column)
                 elif mark == PlayerMark.O:
-                    self.draw_o(surface, row_index, column_index)
+                    self.draw_o(surface, row, column)
 
     def draw_x(self, surface: pygame.Surface, row: int, column: int) -> None:
         """Draw an X in one board cell."""
