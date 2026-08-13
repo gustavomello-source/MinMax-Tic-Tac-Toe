@@ -67,6 +67,7 @@ class PygameApp:
                 self._play_move_at(event.pos)
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_r:
                 self.game.reset()
+                self._play_opponent_turn()
                 self._update_window_title()
 
     def _play_move_at(self, mouse_position: tuple[int, int]) -> None:

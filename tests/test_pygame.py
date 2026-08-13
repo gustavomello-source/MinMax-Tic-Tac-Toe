@@ -87,6 +87,26 @@ def test_opponent_plays_opening_move_when_human_is_second() -> None:
     assert game.current_player == PlayerMark.O
 
 
+def test_reset_replays_opponent_opening_move() -> None:
+    """Reset should restore the opponent opening move for a human O player."""
+    game = TicTacToeGame()
+    pygame_app = PygameApp(
+        game=game,
+        opponent_move_selector=FixedMoveSelector(),
+        human_player=PlayerMark.O,
+    )
+    game.play_move(row=1, column=1)
+    pygame.init()
+    pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_r))
+
+    pygame_app._handle_events()
+
+    pygame.quit()
+    assert game.board.get_current_state()[0][0] == PlayerMark.X
+    assert game.board.get_current_state()[1][1] is None
+    assert game.current_player == PlayerMark.O
+
+
 def test_mouse_position_plays_move_in_mapped_cell() -> None:
     """A mouse position should play a move in its mapped board cell."""
     game = TicTacToeGame()
