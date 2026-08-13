@@ -48,7 +48,7 @@ class PyGameBoard:
                 self.board_layout.height,
             )
             self._screen = pygame.display.set_mode(window_dimensions)
-            pygame.display.set_caption(WINDOW_TITLE)
+            self._update_window_title()
             self._clock = pygame.time.Clock()
             self._running = True
 
@@ -69,6 +69,7 @@ class PyGameBoard:
                 self._play_move_at(event.pos)
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_r:
                 self.game.reset()
+                self._update_window_title()
 
     def _play_move_at(self, mouse_position: tuple[int, int]) -> None:
         """Delegate the board position at a mouse click to the game."""
@@ -76,7 +77,13 @@ class PyGameBoard:
 
         if board_position is not None:
             row, column = board_position
-            self.game.play_move(row, column)
+            if self.game.play_move(row, column):
+                self._update_window_title()
+
+    def _update_window_title(self) -> None:
+        """Display the current player in the window title."""
+        current_mark = self.game.current_player.value
+        pygame.display.set_caption(f"{WINDOW_TITLE} - {current_mark}'s turn")
 
     def _draw(self) -> None:
         """Draw the current application state."""

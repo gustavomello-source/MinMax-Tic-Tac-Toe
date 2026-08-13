@@ -47,3 +47,16 @@ def test_r_key_resets_game() -> None:
     pygame.quit()
     assert game.board.get_current_state()[0][0] is None
     assert game.current_player == PlayerMark.X
+
+
+def test_window_title_shows_current_player() -> None:
+    """The window title should identify whose turn it is."""
+    game = TicTacToeGame()
+    pygame_board = PyGameBoard(game=game)
+    pygame.init()
+
+    pygame_board._update_window_title()
+
+    window_title, _ = pygame.display.get_caption()
+    pygame.quit()
+    assert window_title == "MinMax Tic Tac Toe - X's turn"
