@@ -9,6 +9,16 @@ such as making moves, checking available positions, and resetting the board.
 from tictactoe.game.player_mark import PlayerMark
 
 BOARD_SIZE = 3  # The board is always a 3x3 grid
+WINNING_LINES = (
+    ((0, 0), (0, 1), (0, 2)),
+    ((1, 0), (1, 1), (1, 2)),
+    ((2, 0), (2, 1), (2, 2)),
+    ((0, 0), (1, 0), (2, 0)),
+    ((0, 1), (1, 1), (2, 1)),
+    ((0, 2), (1, 2), (2, 2)),
+    ((0, 0), (1, 1), (2, 2)),
+    ((0, 2), (1, 1), (2, 0)),
+)
 
 
 class Board:
