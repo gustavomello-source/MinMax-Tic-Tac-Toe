@@ -28,9 +28,18 @@ class PygameApp:
         self.game = game if game is not None else TicTacToeGame()
         self.opponent_move_selector = opponent_move_selector
         self.human_player = human_player
-        self.board_layout = board_layout or BoardLayout(
-            width=WINDOW_SIZE,
-            height=WINDOW_SIZE,
+        if (
+            board_renderer is not None
+            and board_layout is not None
+            and board_renderer.board_layout != board_layout
+        ):
+            message = "Board renderer and application must use the same layout"
+            raise ValueError(message)
+
+        self.board_layout = (
+            board_layout
+            or (board_renderer.board_layout if board_renderer is not None else None)
+            or BoardLayout(width=WINDOW_SIZE, height=WINDOW_SIZE)
         )
         self.board_renderer = board_renderer or PygameBoardRenderer(self.board_layout)
         self._screen: pygame.Surface | None = None

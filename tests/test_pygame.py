@@ -46,6 +46,15 @@ def test_pygame_app_uses_supplied_board_renderer() -> None:
     assert pygame_app.board_renderer is board_renderer
 
 
+def test_pygame_app_uses_supplied_renderer_layout() -> None:
+    """An injected renderer should provide the application board layout."""
+    board_renderer = PygameBoardRenderer(BoardLayout(width=300, height=300))
+
+    pygame_app = PygameApp(board_renderer=board_renderer)
+
+    assert pygame_app.board_layout is board_renderer.board_layout
+
+
 def test_pygame_app_uses_supplied_opponent_move_selector() -> None:
     """The Pygame app should retain its configured opponent selector."""
     move_selector = FixedMoveSelector()
