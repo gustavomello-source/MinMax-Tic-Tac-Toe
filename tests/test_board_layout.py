@@ -1,3 +1,5 @@
+import pytest
+
 from tictactoe.ui.board_layout import BoardLayout
 
 
@@ -7,6 +9,12 @@ def test_layout_calculates_cell_dimensions() -> None:
 
     assert layout.cell_width == 200
     assert layout.cell_height == 100
+
+
+def test_layout_rejects_dimensions_smaller_than_board() -> None:
+    """Every board cell should receive at least one screen pixel."""
+    with pytest.raises(ValueError):
+        BoardLayout(width=2, height=3)
 
 
 def test_get_board_position_returns_cell_at_coordinates() -> None:

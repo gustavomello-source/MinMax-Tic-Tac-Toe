@@ -12,6 +12,12 @@ class BoardLayout:
     width: int
     height: int
 
+    def __post_init__(self) -> None:
+        """Reject dimensions that cannot contain every board cell."""
+        if self.width < BOARD_SIZE or self.height < BOARD_SIZE:
+            message = "Board layout dimensions must be at least the board size"
+            raise ValueError(message)
+
     @property
     def cell_width(self) -> int:
         """Return the width of one board cell."""
