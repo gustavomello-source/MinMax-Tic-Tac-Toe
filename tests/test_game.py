@@ -208,3 +208,15 @@ def test_missing_selected_move_preserves_current_turn() -> None:
     assert move_was_played is False
     assert game.current_player == PlayerMark.X
     assert len(game.board.get_available_positions()) == 9
+
+
+def test_invalid_selected_move_preserves_current_turn() -> None:
+    """An occupied selected position should not advance the current turn."""
+    game = TicTacToeGame()
+    game.play_move(row=0, column=0)
+
+    move_was_played = game.play_selected_move(FirstCellSelector())
+
+    assert move_was_played is False
+    assert game.current_player == PlayerMark.O
+    assert game.board.get_mark(row=0, column=0) == PlayerMark.X
