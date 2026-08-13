@@ -1,4 +1,5 @@
 import pygame
+import pytest
 
 from tictactoe.game.game import TicTacToeGame
 from tictactoe.game.player_mark import PlayerMark
@@ -53,6 +54,17 @@ def test_pygame_app_uses_supplied_renderer_layout() -> None:
     pygame_app = PygameApp(board_renderer=board_renderer)
 
     assert pygame_app.board_layout is board_renderer.board_layout
+
+
+def test_pygame_app_rejects_conflicting_renderer_layout() -> None:
+    """The renderer and application should not use different layouts."""
+    board_renderer = PygameBoardRenderer(BoardLayout(width=300, height=300))
+
+    with pytest.raises(ValueError):
+        PygameApp(
+            board_layout=BoardLayout(width=600, height=600),
+            board_renderer=board_renderer,
+        )
 
 
 def test_pygame_app_uses_supplied_opponent_move_selector() -> None:
