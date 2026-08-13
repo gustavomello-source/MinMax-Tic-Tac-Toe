@@ -41,10 +41,7 @@ class Board:
         Returns:
             bool: True if the move was successful, False otherwise.
         """
-        if (
-            self.contains_position(row, column)
-            and self._cells[row][column] is None
-        ):
+        if self.is_position_available(row, column):
             self._cells[row][column] = player
             return True
         return False
