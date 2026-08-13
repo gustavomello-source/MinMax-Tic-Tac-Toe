@@ -128,6 +128,10 @@ class Board:
         """
         return all(cell is not None for row in self._cells for cell in row)
 
+    def is_draw(self) -> bool:
+        """Return whether the board is full without a winner."""
+        return self.is_full() and self.get_winner() is None
+
 
     def is_game_over(self) -> bool:
         """Check whether the game has ended.

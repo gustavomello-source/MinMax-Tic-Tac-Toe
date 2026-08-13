@@ -243,6 +243,36 @@ def test_is_full_returns_true_for_full_board() -> None:
     assert board.is_full() is True
 
 
+def test_is_draw_returns_true_for_full_board_without_winner() -> None:
+    """A full board without a winner should be a draw."""
+    board = Board()
+    moves = [
+        (0, 0, PlayerMark.X),
+        (0, 1, PlayerMark.O),
+        (0, 2, PlayerMark.X),
+        (1, 0, PlayerMark.X),
+        (1, 1, PlayerMark.O),
+        (1, 2, PlayerMark.O),
+        (2, 0, PlayerMark.O),
+        (2, 1, PlayerMark.X),
+        (2, 2, PlayerMark.X),
+    ]
+    for row, column, player in moves:
+        board.make_move(row, column, player)
+
+    assert board.is_draw() is True
+
+
+def test_is_draw_returns_false_for_winning_board() -> None:
+    """A board with a winner should not be a draw."""
+    board = Board()
+    board.make_move(0, 0, PlayerMark.X)
+    board.make_move(0, 1, PlayerMark.X)
+    board.make_move(0, 2, PlayerMark.X)
+
+    assert board.is_draw() is False
+
+
 def test_game_continues() -> None:
     """A game without a winner or full board should continue."""
     board = Board()
