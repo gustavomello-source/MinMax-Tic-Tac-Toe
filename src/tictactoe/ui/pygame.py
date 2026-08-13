@@ -45,6 +45,7 @@ class PygameApp:
                 self.board_layout.height,
             )
             self._screen = pygame.display.set_mode(window_dimensions)
+            self._play_opponent_turn()
             self._update_window_title()
             self._clock = pygame.time.Clock()
             self._running = True
@@ -83,7 +84,10 @@ class PygameApp:
 
     def _play_opponent_turn(self) -> None:
         """Play one move using the configured opponent selector."""
-        if self.opponent_move_selector is not None:
+        if (
+            self.opponent_move_selector is not None
+            and self.game.current_player != self.human_player
+        ):
             self.game.play_selected_move(self.opponent_move_selector)
 
     def _update_window_title(self) -> None:
