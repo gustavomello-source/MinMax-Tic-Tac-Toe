@@ -143,6 +143,21 @@ def test_contains_position_rejects_position_outside_board() -> None:
     assert board.contains_position(row=-1, column=0) is False
 
 
+def test_empty_position_is_available() -> None:
+    """An empty position inside the board should be available."""
+    board = Board()
+
+    assert board.is_position_available(row=1, column=1) is True
+
+
+def test_occupied_position_is_not_available() -> None:
+    """A position containing a mark should not be available."""
+    board = Board()
+    board.make_move(row=1, column=1, player=PlayerMark.X)
+
+    assert board.is_position_available(row=1, column=1) is False
+
+
 def test_copy_returns_independent_board() -> None:
     """Changing a copied board should not change the original board."""
     board = Board()

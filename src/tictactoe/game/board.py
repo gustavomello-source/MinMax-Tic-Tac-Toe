@@ -81,6 +81,13 @@ class Board:
         """Return whether a row and column are inside the board."""
         return 0 <= row < BOARD_SIZE and 0 <= column < BOARD_SIZE
 
+    def is_position_available(self, row: int, column: int) -> bool:
+        """Return whether a board position exists and is empty."""
+        return (
+            self.contains_position(row, column)
+            and self._cells[row][column] is None
+        )
+
     def copy(self) -> "Board":
         """Return an independent copy of the board."""
         copied_board = Board()
