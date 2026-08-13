@@ -1,3 +1,4 @@
+from tictactoe.ai.minmax import MinMax
 from tictactoe.game.game import TicTacToeGame
 from tictactoe.game.player_mark import PlayerMark
 
@@ -93,3 +94,17 @@ def test_play_selected_move_delegates_move_selection() -> None:
     assert move_was_played is True
     assert game.board.get_current_state()[0][0] == PlayerMark.X
     assert game.current_player == PlayerMark.O
+
+
+def test_game_accepts_minmax_as_move_selector() -> None:
+    """MinMax should select a move through the game abstraction."""
+    game = TicTacToeGame()
+    game.play_move(row=0, column=0)
+    game.play_move(row=1, column=0)
+    game.play_move(row=0, column=1)
+    game.play_move(row=1, column=1)
+
+    move_was_played = game.play_selected_move(MinMax(PlayerMark.X))
+
+    assert move_was_played is True
+    assert game.board.get_winner() == PlayerMark.X
